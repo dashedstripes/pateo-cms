@@ -5,6 +5,7 @@ describe('content', () => {
   beforeEach((done) => {
     content.sync({ force: true })
       .then(() => done())
+      .catch((error) => done(error))
   })
 
   it('should load', () => {

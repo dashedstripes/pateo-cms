@@ -5,6 +5,7 @@ describe('object', () => {
   beforeAll((done) => {
     object.sync({ force: true })
       .then(() => done())
+      .catch((error) => done(error))
   })
 
   it('should load', () => {
