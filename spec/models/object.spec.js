@@ -12,12 +12,19 @@ describe('object', () => {
   })
 
   it('should have a title', (done) => {
-    object.create({
+    return object.create({
       title: 'Property'
     }).then((result) => {
       expect(result.title).toBe('Property')
       done()
     })
+  })
+
+  it('should not save without a title', () => {
+    return object.create({
+      title: ''
+    }).then((result) => { throw Error })
+      .expect(error.name).toBe('SequelizeValidationError')
   })
 
   it('should generate a slug from title', () => {
