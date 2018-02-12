@@ -18,6 +18,7 @@ module.exports = (
         idle: 10000
       },
 
-      logging: false
+      logging: false,
+      operatorsAliases: false
     })
 )
