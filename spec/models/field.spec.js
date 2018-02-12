@@ -12,4 +12,19 @@ describe('field', () => {
     expect(field).toBeDefined()
   })
 
+  it('should have a title', () => {
+    return field.create({
+      title: 'Description'
+    }).then((result) => {
+      expect(result.title).toBe('Description')
+    })
+  })
+
+  it('should not save without a title', () => {
+    return field.create({
+      title: ''
+    }).then((result) => { throw Error })
+      .catch((error) => expect(error.name).toBe('SequelizeValidationError'))
+  })
+
 })
