@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../db')
 
-const object = sequelize.define('object', {
+const content = sequelize.define('content', {
   title: {
     type: Sequelize.STRING,
     validate: {
@@ -11,8 +11,8 @@ const object = sequelize.define('object', {
   slug: Sequelize.STRING
 })
 
-object.hook('afterValidate', (object) => {
-  object.slug = object.title.toLowerCase().replace(/ /g, '-')
+content.hook('afterValidate', (content) => {
+  content.slug = content.title.toLowerCase().replace(/ /g, '-')
 })
 
-module.exports = object
+module.exports = content
