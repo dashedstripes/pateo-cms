@@ -27,4 +27,10 @@ describe('field', () => {
       .catch((error) => expect(error.name).toBe('SequelizeValidationError'))
   })
 
+  it('should generate a slug from title', () => {
+    return field.create({
+      title: 'Number of Rooms'
+    }).then((result) => expect(result.slug).toBe('number-of-rooms'))
+  })
+
 })
