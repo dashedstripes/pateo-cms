@@ -8,6 +8,12 @@ describe('fieldInput', () => {
       .catch((error) => done(error))
   })
 
+  afterAll(() => {
+    fieldInput.sync({ force: true })
+      .then(() => done())
+      .catch((error) => done(error))
+  })
+
   it('should load', () => {
     expect(fieldInput).toBeDefined()
   })

@@ -8,6 +8,12 @@ describe('content', () => {
       .catch((error) => done(error))
   })
 
+  afterAll(() => {
+    content.sync({ force: true })
+      .then(() => done())
+      .catch((error) => done(error))
+  })
+
   it('should load', () => {
     expect(content).toBeDefined()
   })

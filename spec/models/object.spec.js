@@ -8,6 +8,12 @@ describe('object', () => {
       .catch((error) => done(error))
   })
 
+  afterAll(() => {
+    object.sync({ force: true })
+      .then(() => done())
+      .catch((error) => done(error))
+  })
+
   it('should load', () => {
     expect(object).toBeDefined()
   })
