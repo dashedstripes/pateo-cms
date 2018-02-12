@@ -19,6 +19,6 @@ field.hook('afterValidate', (field) => {
 
 field.belongsTo(object)
 field.belongsTo(page)
-field.hasOne(fieldInput)
+field.belongsTo(fieldInput)
 
 module.exports = field

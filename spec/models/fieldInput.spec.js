@@ -2,7 +2,7 @@ const fieldInput = require('../../src/models/fieldInput')
 
 describe('fieldInput', () => {
 
-  beforeAll((done) => {
+  beforeEach((done) => {
     fieldInput.sync({ force: true })
       .then(() => done())
       .catch((error) => done(error))
