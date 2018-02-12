@@ -14,7 +14,8 @@ describe('fieldInput', () => {
 
   it('should have a title', () => {
     return fieldInput.create({
-      title: 'Text'
+      title: 'Text',
+      type: 'text'
     }).then((result) => {
       expect(result.title).toBe('Text')
     })
@@ -29,6 +30,7 @@ describe('fieldInput', () => {
 
   it('should have a type', () => {
     return fieldInput.create({
+      title: 'Text',
       type: 'text'
     }).then((result) => {
       expect(result.type).toBe('text')

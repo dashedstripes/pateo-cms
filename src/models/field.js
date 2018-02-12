@@ -1,5 +1,8 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../db')
+const object = require('./object')
+const page = require('./page')
+const fieldInput = require('./fieldInput')
 
 const field = sequelize.define('field', {
   title: {
@@ -13,5 +16,9 @@ const field = sequelize.define('field', {
 field.hook('afterValidate', (field) => {
   field.slug = field.title.toLowerCase().replace(/ /g, '-')
 })
+
+field.belongsTo(object)
+field.belongsTo(page)
+field.hasOne(fieldInput)
 
 module.exports = field
