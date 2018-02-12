@@ -24,7 +24,7 @@ describe('object', () => {
     return object.create({
       title: ''
     }).then((result) => { throw Error })
-      .expect(error.name).toBe('SequelizeValidationError')
+      .catch((error) => expect(error.name).toBe('SequelizeValidationError'))
   })
 
   it('should generate a slug from title', () => {
