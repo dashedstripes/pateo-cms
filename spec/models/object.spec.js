@@ -11,12 +11,11 @@ describe('object', () => {
     expect(object).toBeDefined()
   })
 
-  it('should have a title', (done) => {
+  it('should have a title', () => {
     return object.create({
       title: 'Property'
     }).then((result) => {
       expect(result.title).toBe('Property')
-      done()
     })
   })
 
