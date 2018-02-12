@@ -8,7 +8,7 @@ const object = sequelize.define('object', {
       notEmpty: true
     }
   },
-  slug: Sequelize.STRING
+  slug: Sequelize.STRING,
 })
 
 object.hook('afterValidate', (object) => {
