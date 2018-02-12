@@ -8,12 +8,6 @@ describe('page', () => {
       .catch((error) => done(error))
   })
 
-  afterAll(() => {
-    page.sync({ force: true })
-      .then(() => done())
-      .catch((error) => done(error))
-  })
-
   it('should load', () => {
     expect(page).toBeDefined()
   })

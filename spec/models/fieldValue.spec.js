@@ -2,13 +2,7 @@ const fieldValue = require('../../src/models/fieldValue')
 
 describe('fieldValue', () => {
 
-  beforeEach((done) => {
-    fieldValue.sync({ force: true })
-      .then(() => done())
-      .catch((error) => done(error))
-  })
-
-  afterAll(() => {
+  beforeAll((done) => {
     fieldValue.sync({ force: true })
       .then(() => done())
       .catch((error) => done(error))

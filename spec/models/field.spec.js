@@ -2,13 +2,7 @@ const field = require('../../src/models/field')
 
 describe('field', () => {
 
-  beforeEach((done) => {
-    field.sync({ force: true })
-      .then(() => done())
-      .catch((error) => done(error))
-  })
-
-  afterAll(() => {
+  beforeAll((done) => {
     field.sync({ force: true })
       .then(() => done())
       .catch((error) => done(error))

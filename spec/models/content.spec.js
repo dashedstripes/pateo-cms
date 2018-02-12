@@ -2,13 +2,7 @@ const content = require('../../src/models/content')
 
 describe('content', () => {
 
-  beforeEach((done) => {
-    content.sync({ force: true })
-      .then(() => done())
-      .catch((error) => done(error))
-  })
-
-  afterAll(() => {
+  beforeAll((done) => {
     content.sync({ force: true })
       .then(() => done())
       .catch((error) => done(error))
