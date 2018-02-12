@@ -9,8 +9,7 @@ const content = sequelize.define('content', {
       notEmpty: true
     }
   },
-  slug: Sequelize.STRING,
-  objectId: Sequelize.INTEGER
+  slug: Sequelize.STRING
 })
 
 content.hook('afterValidate', (content) => {
