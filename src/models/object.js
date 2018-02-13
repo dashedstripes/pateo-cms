@@ -15,4 +15,10 @@ object.hook('afterValidate', (object) => {
   object.slug = object.title.toLowerCase().replace(/ /g, '-')
 })
 
+object.hook('beforeBulkCreate', (objects) => {
+  for (const object of objects) {
+    object.slug = object.title.toLowerCase().replace(/ /g, '-')
+  }
+})
+
 module.exports = object

@@ -4,6 +4,22 @@ const object = require('../../src/models/object')
 
 describe('GET /api/objects', () => {
 
+  beforeEach((done) => {
+    return object.sync({ force: true })
+      .then(() => {
+        return object.bulkCreate([
+          {
+            title: 'Property'
+          },
+          {
+            title: 'Artwork'
+          }
+        ])
+      })
+      .then(() => done())
+      .catch((error) => done(error))
+  })
+
   it('should return 200', () => {
     return request(app).get('/api/objects').expect(200)
   })
@@ -18,7 +34,18 @@ describe('GET /api/objects', () => {
     return request(app)
       .get('/api/objects')
       .then((res) => {
-        expect(res.json).toBe([])
+        expect(res.body).toEqual([
+          {
+            id: 1,
+            title: 'Property',
+            slug: 'property'
+          },
+          {
+            id: 2,
+            title: 'Artwork',
+            slug: 'artwork'
+          }
+        ])
       })
   })
 
