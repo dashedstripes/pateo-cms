@@ -8,4 +8,10 @@ describe('GET /api/objects', () => {
     return request(app).get('/api/objects').expect(200)
   })
 
+  it('should respond with json', () => {
+    return request(app)
+      .get('/api/objects')
+      .expect('Content-Type', /json/)
+  })
+
 })
