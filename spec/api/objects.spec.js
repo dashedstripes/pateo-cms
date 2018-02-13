@@ -106,7 +106,30 @@ describe('GET /api/objects/:object_id', () => {
 })
 
 describe('PUT /api/objects/:object_id', () => {
+
+  beforeEach((done) => {
+    return object.sync({ force: true })
+      .then(() => {
+        return object.create({
+          title: 'Property'
+        })
+      })
+      .then(() => done())
+      .catch((error) => done(error))
+  })
+
   it('should return 200', () => {
     return request(app).put('/api/objects/1').expect(200)
+  })
+
+  it('should update an existing object by id', () => {
+    return request(app)
+      .put('/api/objects/1')
+      .send({ title: 'Artwork' })
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json')
+      .then((res) => {
+        expect(res.body).toEqual([1])
+      })
   })
 })

@@ -35,4 +35,15 @@ router.route('/:object_id')
       .catch((error) => res.json(error))
   })
 
+  .put((req, res) => {
+    object.update({
+      title: req.body.title
+    }, {
+        where: {
+          id: req.params.object_id
+        }
+      }).then((rowCount) => res.json(rowCount))
+      .catch((error) => res.json(error))
+  })
+
 module.exports = router
