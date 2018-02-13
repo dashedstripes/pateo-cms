@@ -14,4 +14,12 @@ describe('GET /api/objects', () => {
       .expect('Content-Type', /json/)
   })
 
+  it('should return an array of objects', () => {
+    return request(app)
+      .get('/api/objects')
+      .then((res) => {
+        expect(res.json).toBe([])
+      })
+  })
+
 })
