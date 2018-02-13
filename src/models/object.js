@@ -6,7 +6,8 @@ const object = sequelize.define('object', {
   title: {
     type: Sequelize.STRING,
     validate: {
-      notEmpty: true
+      notEmpty: true,
+      is: /^[\w\-\s]+$/
     }
   },
   slug: Sequelize.STRING

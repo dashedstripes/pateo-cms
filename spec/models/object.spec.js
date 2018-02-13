@@ -20,6 +20,15 @@ describe('object', () => {
     })
   })
 
+  it('should have an alphanumeric (with space) title', () => {
+    return object.create({
+      title: '.!!Proper Teaaa&^%$'
+    }).then((result) => { throw Error })
+      .catch((error) => {
+        expect(error.name).toBe('SequelizeValidationError')
+      })
+  })
+
   it('should not save without a title', () => {
     return object.create({
       title: ''
