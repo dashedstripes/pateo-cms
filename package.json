@@ -7,7 +7,8 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "jest": "^22.2.2"
+    "jest": "^22.2.2",
+    "supertest": "^3.0.0"
   },
   "dependencies": {
     "pg": "^7.4.1",
