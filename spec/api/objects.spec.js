@@ -51,7 +51,7 @@ describe('GET /api/objects', () => {
 
 })
 
-describe('POST /objects', () => {
+describe('POST /api/objects', () => {
 
   beforeEach(() => object.sync({ force: true }))
 
@@ -103,4 +103,10 @@ describe('GET /api/objects/:object_id', () => {
       })
   })
 
+})
+
+describe('PUT /api/objects/:object_id', () => {
+  it('should return 200', () => {
+    return request(app).put('/api/objects/1').expect(200)
+  })
 })
