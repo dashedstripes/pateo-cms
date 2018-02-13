@@ -17,6 +17,12 @@ content.hook('afterValidate', (content) => {
   content.slug = slugify(content.title)
 })
 
+content.hook('beforeBulkCreate', (contents) => {
+  for (const content of contents) {
+    content.slug = slugify(content.title)
+  }
+})
+
 content.belongsTo(object)
 
 module.exports = content
