@@ -13,4 +13,16 @@ router.route('/')
       .catch((error) => res.json(error))
   })
 
+router.route('/:object_id')
+  .get((req, res) => {
+    object.find({
+      where: {
+        id: req.params.object_id
+      },
+      attributes: allowedAttributes
+    })
+      .then((object) => res.json(object))
+      .catch((error) => res.json(error))
+  })
+
 module.exports = router

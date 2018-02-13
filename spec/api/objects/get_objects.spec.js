@@ -1,6 +1,6 @@
-const app = require('../../src/app')
+const app = require('../../../src/app')
 const request = require('supertest')
-const object = require('../../src/models/object')
+const object = require('../../../src/models/object')
 
 describe('GET /api/objects', () => {
 
