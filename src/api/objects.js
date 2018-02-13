@@ -46,4 +46,13 @@ router.route('/:object_id')
       .catch((error) => res.json(error))
   })
 
+  .delete((req, res) => {
+    object.destroy({
+      where: {
+        id: req.params.object_id
+      }
+    }).then((rowCount) => res.json(rowCount))
+      .catch((error) => res.json(error))
+  })
+
 module.exports = router
