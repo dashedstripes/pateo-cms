@@ -13,6 +13,16 @@ router.route('/')
       .catch((error) => res.json(error))
   })
 
+  .post((req, res) => {
+    object.create({
+      title: req.body.title
+    })
+      .then((object) => {
+        res.json(object)
+      })
+      .catch((error) => res.json(error))
+  })
+
 router.route('/:object_id')
   .get((req, res) => {
     object.find({

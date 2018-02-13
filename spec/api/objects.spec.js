@@ -51,6 +51,28 @@ describe('GET /api/objects', () => {
 
 })
 
+describe('POST /objects', () => {
+
+  beforeEach(() => object.sync({ force: true }))
+
+  it('should return 200', () => {
+    return request(app).post('/api/objects').expect(200)
+  })
+
+  it('should create an object', () => {
+    return request(app)
+      .post('/api/objects')
+      .send({ title: 'Property' })
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json')
+      .then((res) => {
+        expect(res.body.title).toBe('Property')
+        expect(res.body.slug).toBe('property')
+      })
+  })
+
+})
+
 describe('GET /api/objects/:object_id', () => {
 
   beforeEach((done) => {
