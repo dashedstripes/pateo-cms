@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../db')
+const slugify = require('../helpers').slugify
 
 const page = sequelize.define('page', {
   title: {
@@ -12,7 +13,7 @@ const page = sequelize.define('page', {
 })
 
 page.hook('afterValidate', (page) => {
-  page.slug = page.title.toLowerCase().replace(/ /g, '-')
+  page.slug = slugify(page.title)
 })
 
 module.exports = page

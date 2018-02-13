@@ -3,6 +3,7 @@ const sequelize = require('../db')
 const object = require('./object')
 const page = require('./page')
 const fieldInput = require('./fieldInput')
+const slugify = require('../helpers').slugify
 
 const field = sequelize.define('field', {
   title: {
@@ -14,7 +15,7 @@ const field = sequelize.define('field', {
 })
 
 field.hook('afterValidate', (field) => {
-  field.slug = field.title.toLowerCase().replace(/ /g, '-')
+  field.slug = slugify(field.title)
 })
 
 field.belongsTo(object)

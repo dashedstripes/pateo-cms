@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../db')
+const slugify = require('../helpers').slugify
 
 const object = sequelize.define('object', {
   title: {
@@ -12,12 +13,12 @@ const object = sequelize.define('object', {
 })
 
 object.hook('afterValidate', (object) => {
-  object.slug = object.title.toLowerCase().replace(/ /g, '-')
+  object.slug = slugify(object.title)
 })
 
 object.hook('beforeBulkCreate', (objects) => {
   for (const object of objects) {
-    object.slug = object.title.toLowerCase().replace(/ /g, '-')
+    object.slug = slugify(object.title)
   }
 })
 
