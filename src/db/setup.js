@@ -6,7 +6,7 @@ const content = require('../../src/models/content')
 const field = require('../../src/models/field')
 const fieldValue = require('../../src/models/fieldValue')
 
-return object.sync({ force: true })
+object.sync({ force: true })
   .then(() => page.sync({ force: true }))
   .then(() => fieldInput.sync({ force: true }))
   .then(() => content.sync({ force: true }))
