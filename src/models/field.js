@@ -11,7 +11,8 @@ const field = sequelize.define('field', {
     validate: {
       notEmpty: true
     }
-  }
+  },
+  slug: Sequelize.STRING
 })
 
 field.hook('afterValidate', (field) => {
