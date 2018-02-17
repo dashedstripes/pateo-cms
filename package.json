@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest --forceExit"
+    "test": "jest --forceExit",
+    "setup": "NODE_ENV=dev node src/db/setup"
   },
   "license": "MIT",
   "devDependencies": {
