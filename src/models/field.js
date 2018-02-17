@@ -19,6 +19,12 @@ field.hook('afterValidate', (field) => {
   field.slug = slugify(field.title)
 })
 
+field.hook('beforeBulkCreate', (fields) => {
+  for (const field of fields) {
+    field.slug = slugify(field.title)
+  }
+})
+
 field.belongsTo(object)
 field.belongsTo(page)
 field.belongsTo(fieldInput)
