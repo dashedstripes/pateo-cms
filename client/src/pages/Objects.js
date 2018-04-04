@@ -7,8 +7,15 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h1>Pateo CMS</h1>
-        <p>Homepage</p>
+        <h1>Objects</h1>
+
+        <div>
+          <h3>Artwork</h3>
+        </div>
+
+        <div>
+          <h3>Property</h3>
+        </div>
       </div>
     )
   }
