@@ -1,0 +1,13 @@
+@mixin generate-colors() {
+  @each $name, $color in $colors {
+    .c-#{$name} {
+      color: $color !important;
+    }
+
+    .c-b-#{$name} {
+      background-color: $color !important;
+    }
+  }
+}
+
+@include generate-colors();

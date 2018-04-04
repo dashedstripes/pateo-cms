@@ -1,0 +1,31 @@
+@mixin generate-margins() {
+  @each $name, $value in $margins {
+    .m-#{$name} {
+      margin: $value + rem !important;
+    }
+  }
+
+  @each $direction in $directions {
+    @each $name, $value in $margins {
+      .m-#{str-slice($direction, 0, 1)}-#{$name} {
+        margin-#{$direction}: $value + rem !important;
+      }
+    }
+  }
+
+  @each $name, $value in $margins {
+    .m-tb-#{$name} {
+      margin-top: $value + rem !important;
+      margin-bottom: $value + rem !important;
+    }
+  }
+
+  @each $name, $value in $margins {
+    .m-lr-#{$name} {
+      margin-left: $value + rem !important;
+      margin-right: $value + rem !important;
+    }
+  }
+}
+
+@include generate-margins();

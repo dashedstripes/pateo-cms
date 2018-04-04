@@ -1,0 +1,31 @@
+@mixin generate-paddings() {
+  @each $name, $value in $paddings {
+    .p-#{$name} {
+      padding: $value + rem !important;
+    }
+  }
+
+  @each $direction in $directions {
+    @each $name, $value in $paddings {
+      .p-#{str-slice($direction, 0, 1)}-#{$name} {
+        padding-#{$direction}: $value + rem !important;
+      }
+    }
+  }
+
+  @each $name, $value in $paddings {
+    .p-tb-#{$name} {
+      padding-top: $value + rem !important;
+      padding-bottom: $value + rem !important;
+    }
+  }
+
+  @each $name, $value in $paddings {
+    .p-lr-#{$name} {
+      padding-left: $value + rem !important;
+      padding-right: $value + rem !important;
+    }
+  }
+}
+
+@include generate-paddings();

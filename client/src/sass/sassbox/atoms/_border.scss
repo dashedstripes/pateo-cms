@@ -1,0 +1,53 @@
+@each $name, $color in $colors {
+
+  .b-#{$name} {
+    border: $border-width solid $color !important;
+  }
+
+  .b-t-#{$name} {
+    border-top: $border-width solid $color !important;
+  }
+
+  .b-b-#{$name} {
+    border-bottom: $border-width solid $color !important;
+  }
+
+  .b-l-#{$name} {
+    border-left: $border-width solid $color !important;
+  }
+
+  .b-r-#{$name} {
+    border-right: $border-width solid $color !important;
+  }
+
+  .b-tb-#{$name} {
+    border-top: $border-width solid $color !important;
+    border-bottom: $border-width solid $color !important;
+  }
+
+  .b-lr-#{$name} {
+    border-left: $border-width solid $color !important;
+    border-right: $border-width solid $color !important;
+  }
+
+}
+
+.br {
+  border-radius: $border-radius;
+}
+
+.br-tl {
+  border-top-left-radius: $border-radius; 
+}
+
+.br-tr {
+  border-top-right-radius: $border-radius; 
+}
+
+.br-bl {
+  border-bottom-left-radius: $border-radius; 
+}
+
+.br-br {
+  border-bottom-right-radius: $border-radius; 
+}

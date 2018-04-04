@@ -1,0 +1,88 @@
+// Grid
+
+$g-width: 1200px;
+$g-padding: 30px;
+$g-columns: 12;
+
+$g-breakpoint-sm: 'screen and (max-width: 600px)';
+$g-breakpoint-md: 'screen and (max-width: 900px)';
+
+// Color
+
+$c-white: #fff;
+$c-black: #000;
+$c-light-gray: #f4f4f4;
+$c-dark-gray: #5b5d63;
+
+$c-brand: #3f46ad;
+
+$c-red: #bb6464;
+$c-blue: #2c5e81;
+$c-green: #afdd08;
+$c-yellow: #e7d95d;
+
+$c-button: #3f46ad;
+
+$colors: (
+  ('white', $c-white),
+  ('black', $c-black),
+  ('light-gray', $c-light-gray),
+  ('dark-gray', $c-dark-gray),
+  ('brand', $c-brand),
+  ('red', $c-red),
+  ('blue', $c-blue),
+  ('green', $c-green),
+  ('yellow', $c-yellow)
+);
+
+// Directions
+
+$directions: (
+  'top',
+  'bottom',
+  'left',
+  'right'  
+);
+
+// Margin
+
+$margins: (
+  ('0', 0),
+  ('05', 0.5),
+  ('1', 1),
+  ('2', 2),
+  ('3', 3),
+  ('4', 4),
+  ('5', 5),
+  ('6', 6)
+);
+
+// Padding
+
+$paddings: (
+  ('0', 0),
+  ('05', 0.5),
+  ('1', 1),
+  ('2', 2),
+  ('3', 3),
+  ('4', 4),
+  ('5', 5),
+  ('6', 6)
+);
+
+// Text
+
+$text-sizes: (
+  ('md', 1.25em),
+  ('lg', 1.5em),
+  ('xlg', 2em)
+);
+
+// Border
+
+$border-width: 2px;
+$border-radius: 3px;
+
+// Box Shadow
+
+$box-shadow: 0px 4px 6px rgba(0,0,0,0.1);

@@ -1,0 +1,29 @@
+.button {
+  display: inline-block;
+  font-weight: bold;
+  padding: 20px 30px;
+  color: $c-white;
+  background: $c-button;
+  border-radius: 3px;
+  transition: 0.25s;
+
+  &:hover {
+    background: darken($c-button, 20%);
+  }
+
+  &.secondary {
+    color: darken($c-button, 20%);
+    border: $border-width solid $c-button;
+    background: $c-white;
+
+    &:hover {
+      border: $border-width solid darken($c-button, 20%);
+    }
+  }
+
+  &.tertiary {
+    color: $c-button;
+    background: none;
+    border: 0;
+  }
+}
