@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 
-import Footer from '../components/Footer'
-import Header from '../components/Header'
+import Sidebar from '../components/Sidebar'
 
 import '../sass/style.scss'
 
 class Layout extends Component {
   render() {
     return (
-      <div>
-        <Header />
-        {this.props.children}
-        <Footer />
+      <div class='app'>
+        <Sidebar />
+        <div class='main c-b-light-gray'>
+          {this.props.children}
+        </div>
       </div>
     )
   }
