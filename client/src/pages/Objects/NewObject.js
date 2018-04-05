@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 
-class NewPage extends Component {
+class NewObject extends Component {
   render() {
     return (
       <div>
-        <p>New page form</p>
+        <p>New Object form</p>
       </div>
     )
   }
 }
 
-export default NewPage
+export default NewObject

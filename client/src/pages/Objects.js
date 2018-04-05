@@ -15,10 +15,26 @@ class Home extends Component {
 
         <div>
           <h3>Artwork</h3>
+          <ul>
+            <li>
+              <Link to='/objects/1/edit'>Edit</Link>
+            </li>
+            <li>
+              <a href='#'>Delete</a>
+            </li>
+          </ul>
         </div>
 
         <div>
           <h3>Property</h3>
+          <ul>
+            <li>
+              <Link to='/objects/2/edit'>Edit</Link>
+            </li>
+            <li>
+              <a href='#'>Delete</a>
+            </li>
+          </ul>
         </div>
       </div>
     )

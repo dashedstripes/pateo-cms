@@ -14,12 +14,27 @@ class Home extends Component {
         <Link to='/pages/new'>New Page</Link>
 
         <div>
-          <h3>About</h3>
-
+          <h3>Contact</h3>
+          <ul>
+            <li>
+              <Link to='/pages/1/edit'>Edit</Link>
+            </li>
+            <li>
+              <a href='#'>Delete</a>
+            </li>
+          </ul>
         </div>
 
         <div>
-          <h3>Contact</h3>
+          <h3>About</h3>
+          <ul>
+            <li>
+              <Link to='/pages/2/edit'>Edit</Link>
+            </li>
+            <li>
+              <a href='#'>Delete</a>
+            </li>
+          </ul>
         </div>
       </div>
     )
