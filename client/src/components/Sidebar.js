@@ -31,8 +31,12 @@ class Sidebar extends Component {
 
           <h4>PAGES</h4>
           <ul class='list-unstyled p-0'>
-            <li class='c-b-light-gray m-tb-1 p-tb-1 br c-black t-b'>ABOUT</li>
-            <li class='c-b-light-gray m-tb-1 p-tb-1 br c-black t-b'>CONTACT</li>
+            <li class='c-b-light-gray m-tb-1 p-tb-1 br c-black t-b'>
+              <Link to='/pages/1/contents'>ABOUT</Link>
+            </li>
+            <li class='c-b-light-gray m-tb-1 p-tb-1 br c-black t-b'>
+              <Link to='/pages/2/contents'>CONTACT</Link>
+            </li>
           </ul>
         </div>
       </div>

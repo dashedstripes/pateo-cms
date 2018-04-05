@@ -20,6 +20,8 @@ import Pages from './pages/Pages'
 import NewPage from './pages/Pages/NewPage'
 import EditPage from './pages/Pages/EditPage'
 
+import PagesContents from './pages/PagesContents'
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
@@ -38,6 +40,8 @@ ReactDOM.render(
         <Route exact path="/pages" component={Pages} />
         <Route exact path="/pages/new" component={NewPage} />
         <Route exact path="/pages/:page_id/edit" component={EditPage} />
+
+        <Route exact path="/pages/:page_id/contents" component={PagesContents} />
       </Layout>
     </BrowserRouter>
   </Provider>,
