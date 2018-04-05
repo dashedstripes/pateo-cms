@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { Link } from 'react-router-dom'
+
 class Home extends Component {
   constructor() {
     super()
@@ -9,8 +11,11 @@ class Home extends Component {
       <div>
         <h1>Page</h1>
 
+        <Link to='/pages/new'>New Page</Link>
+
         <div>
           <h3>About</h3>
+
         </div>
 
         <div>
