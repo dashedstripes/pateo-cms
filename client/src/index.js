@@ -11,6 +11,11 @@ import Objects from './pages/Objects'
 import NewObject from './pages/Objects/NewObject'
 import EditObject from './pages/Objects/EditObject'
 
+import ObjectContents from './pages/ObjectContents'
+
+import NewContent from './pages/Contents/NewContent'
+import EditContent from './pages/Contents/EditContent'
+
 import Pages from './pages/Pages'
 import NewPage from './pages/Pages/NewPage'
 import EditPage from './pages/Pages/EditPage'
@@ -24,6 +29,11 @@ ReactDOM.render(
         <Route exact path="/objects" component={Objects} />
         <Route exact path="/objects/new" component={NewObject} />
         <Route exact path="/objects/:object_id/edit" component={EditObject} />
+
+        <Route exact path="/objects/:object_id/contents" component={ObjectContents} />
+
+        <Route exact path="/objects/:object_id/contents/new" component={NewContent} />
+        <Route exact path="/contents/:content_id/edit" component={EditContent} />
 
         <Route exact path="/pages" component={Pages} />
         <Route exact path="/pages/new" component={NewPage} />
