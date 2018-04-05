@@ -1,44 +1,40 @@
 import React, { Component } from 'react'
-
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-class Home extends Component {
-  constructor() {
-    super()
-  }
+class Pages extends Component {
   render() {
+    let pages = this.props.pages.map((page) => {
+      return (
+        <div key={page.id}>
+          <h3>{page.title}</h3>
+          <ul>
+            <li>
+              <Link to={`/pages/${page.id}/edit`}>Edit</Link>
+            </li>
+            <li>
+              <a href='#'>Delete</a>
+            </li>
+          </ul>
+        </div>
+      )
+    })
+
     return (
       <div>
-        <h1>Page</h1>
-
+        <h1>Pages</h1>
         <Link to='/pages/new'>New Page</Link>
-
-        <div>
-          <h3>Contact</h3>
-          <ul>
-            <li>
-              <Link to='/pages/1/edit'>Edit</Link>
-            </li>
-            <li>
-              <a href='#'>Delete</a>
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <h3>About</h3>
-          <ul>
-            <li>
-              <Link to='/pages/2/edit'>Edit</Link>
-            </li>
-            <li>
-              <a href='#'>Delete</a>
-            </li>
-          </ul>
-        </div>
+        {pages}
       </div>
     )
+
   }
 }
 
-export default Home
+function mapStateToProps(state) {
+  return {
+    pages: state.pages
+  }
+}
+
+export default connect(mapStateToProps)(Pages)

@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux'
 
-import filterReducer from './filterReducer'
-import todosReducer from './todosReducer'
+import objectsReducer from './objectsReducer'
+import pagesReducer from './pagesReducer'
 
 const reducers = combineReducers({
-  filter: filterReducer,
-  todos: todosReducer
+  objects: objectsReducer,
+  pages: pagesReducer
 })
 
 export default reducers

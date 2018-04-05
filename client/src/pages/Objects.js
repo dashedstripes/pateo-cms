@@ -1,44 +1,40 @@
 import React, { Component } from 'react'
-
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-class Home extends Component {
-  constructor() {
-    super()
-  }
+class Objects extends Component {
   render() {
+    let objects = this.props.objects.map((object) => {
+      return (
+        <div key={object.id}>
+          <h3>{object.title}</h3>
+          <ul>
+            <li>
+              <Link to={`/objects/${object.id}/edit`}>Edit</Link>
+            </li>
+            <li>
+              <a href='#'>Delete</a>
+            </li>
+          </ul>
+        </div>
+      )
+    })
+
     return (
       <div>
         <h1>Objects</h1>
-
         <Link to='/objects/new'>New Object</Link>
-
-        <div>
-          <h3>Artwork</h3>
-          <ul>
-            <li>
-              <Link to='/objects/1/edit'>Edit</Link>
-            </li>
-            <li>
-              <a href='#'>Delete</a>
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <h3>Property</h3>
-          <ul>
-            <li>
-              <Link to='/objects/2/edit'>Edit</Link>
-            </li>
-            <li>
-              <a href='#'>Delete</a>
-            </li>
-          </ul>
-        </div>
+        {objects}
       </div>
     )
+
   }
 }
 
-export default Home
+function mapStateToProps(state) {
+  return {
+    objects: state.objects
+  }
+}
+
+export default connect(mapStateToProps)(Objects)
