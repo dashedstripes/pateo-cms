@@ -74,6 +74,17 @@ class EditObjectForm extends Component {
     })
   }
 
+  handleNewField(e) {
+    this.setState({
+      fields: this.state.fields.concat({
+        id: Date.now(),
+        title: 'Untitled Field',
+        slug: 'untitled-field',
+        fieldInputId: 1
+      })
+    })
+  }
+
   render() {
     let fields = this.state.fields.map((field) => {
       let fieldInputs = this.state.fieldInputs.map((fieldInput) => {
@@ -94,6 +105,7 @@ class EditObjectForm extends Component {
       <div>
         <h1>Edit {this.state.object.title} Object</h1>
         <button class='button'>Update Object</button>
+        <button class='button tertiary' onClick={this.handleNewField.bind(this)}>New Field</button>
         <div class='row p-0 p-tb-1'>
           {fields}
         </div>
