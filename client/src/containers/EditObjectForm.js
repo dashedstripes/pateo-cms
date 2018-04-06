@@ -63,6 +63,17 @@ class EditObjectForm extends Component {
     })
   }
 
+  handleInputChange(fieldId, e) {
+    this.setState({
+      fields: this.state.fields.map((field) => {
+        if (field.id === fieldId) {
+          field.title = e.target.value
+        }
+        return field
+      })
+    })
+  }
+
   render() {
     let fields = this.state.fields.map((field) => {
       let fieldInputs = this.state.fieldInputs.map((fieldInput) => {
@@ -70,8 +81,8 @@ class EditObjectForm extends Component {
       })
 
       return (
-        <div key={field.id}>
-          <p>{field.title}</p>
+        <div key={field.id} class='col-6 p-l-0 p-r-0'>
+          <input type='text' value={field.title} onChange={this.handleInputChange.bind(this, field.id)} />
           <select value={field.fieldInputId} onChange={this.handleSelectChange.bind(this, field.id)}>
             {fieldInputs}
           </select>
@@ -83,7 +94,9 @@ class EditObjectForm extends Component {
       <div>
         <h1>Edit {this.state.object.title} Object</h1>
         <button class='button'>Update Object</button>
-        {fields}
+        <div class='row p-0 p-tb-1'>
+          {fields}
+        </div>
       </div>
     )
   }
