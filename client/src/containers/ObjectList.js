@@ -17,7 +17,13 @@ class ObjectList extends Component {
       <ObjectListItem key={object.id} id={object.id} title={object.title} />)
 
     if (this.props.pending) {
-      return (<p>Loading objects...</p>)
+      return (
+        <div>
+          <h1>Objects</h1>
+          <Link to='/objects/new'>New Object</Link>
+          <p>Loading objects...</p>
+        </div>
+      )
     }
 
     if (this.props.error.message) {
