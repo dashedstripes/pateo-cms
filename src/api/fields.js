@@ -6,6 +6,14 @@ const allowedAttributes = ['id', 'title', 'slug', 'objectId', 'pageId', 'fieldIn
 
 router.route('/')
 
+  .get((req, res) => {
+    field.findAll({
+      attributes: allowedAttributes
+    })
+      .then((objects) => res.json(objects))
+      .catch((error) => res.json(error))
+  })
+
   .post((req, res) => {
     field.create({
       title: req.body.title,

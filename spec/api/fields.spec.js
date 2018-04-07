@@ -42,6 +42,59 @@ describe('/api/fields', () => {
       .catch((error) => done(error))
   })
 
+  describe('GET', () => {
+
+    it('should return 200', () => {
+      return request(app).get('/api/fields').expect(200)
+    })
+
+    it('should respond with json', () => {
+      return request(app)
+        .get('/api/fields')
+        .expect('Content-Type', /json/)
+    })
+
+    it('should return an array of fields', () => {
+      return field.bulkCreate([
+        {
+          title: 'Description',
+          objectId: 1,
+          pageId: null,
+          fieldInputId: 1
+        },
+        {
+          title: 'Medium Type',
+          objectId: null,
+          pageId: 1,
+          fieldInputId: 1
+        }
+      ]).then(() => {
+        return request(app)
+          .get('/api/fields')
+          .then((res) => {
+            expect(res.body).toEqual([
+              {
+                id: 1,
+                title: 'Description',
+                slug: 'description',
+                objectId: 1,
+                pageId: null,
+                fieldInputId: 1
+              },
+              {
+                id: 2,
+                title: 'Medium Type',
+                slug: 'medium-type',
+                objectId: null,
+                pageId: 1,
+                fieldInputId: 1
+              }
+            ])
+          })
+      })
+    })
+  })
+
   describe('POST', () => {
 
     it('should return 200', () => {
