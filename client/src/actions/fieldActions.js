@@ -6,3 +6,10 @@ export function fetchFields() {
     payload: axios.get('/api/fields')
   }
 }
+
+export function updateFields(fieldPromises) {
+  return {
+    type: 'UPDATE_FIELDS',
+    payload: Promise.all(fieldPromises)
+  }
+}

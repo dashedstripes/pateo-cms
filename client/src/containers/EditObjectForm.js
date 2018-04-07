@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 import { connect } from 'react-redux'
 
 import { fetchObjects } from '../actions/objectActions'
 import { fetchFieldInputs } from '../actions/fieldinputActions'
-import { fetchFields } from '../actions/fieldActions'
+import { fetchFields, updateFields } from '../actions/fieldActions'
 
 class EditObjectForm extends Component {
   constructor(props) {
@@ -77,7 +78,8 @@ class EditObjectForm extends Component {
         id: Date.now(),
         title: 'Untitled Field',
         slug: 'untitled-field',
-        fieldInputId: 1
+        fieldInputId: 1,
+        newField: true
       })
     })
   }
@@ -90,6 +92,22 @@ class EditObjectForm extends Component {
         }
       })
     })
+  }
+
+  handleUpdate() {
+    let fieldPromises = this.state.fields.map((field) => {
+      if (field.newField) {
+        return axios.post(`/api/fields`, {
+          title: field.title,
+          fieldInputId: field.fieldInputId,
+          objectId: this.state.object.id
+        })
+      } else {
+        return axios.put(`/api/fields/${field.id}`, field)
+      }
+    })
+
+    this.props.dispatch(updateFields(fieldPromises))
   }
 
   render() {
@@ -110,17 +128,25 @@ class EditObjectForm extends Component {
     })
 
     if (this.props.objects.pending) {
+      return <p>Loading objects...</p>
+    }
+
+    if (this.props.fields.pending) {
       return <p>Loading fields...</p>
     }
 
     if (this.props.objects.error.message) {
-      return <p>this.props.objects.error.message</p>
+      return <p>{this.props.objects.error.message}</p>
+    }
+
+    if (this.props.fields.error.message) {
+      return <p>{this.props.fields.error.message}</p>
     }
 
     return (
       <div>
         <h1>Edit {this.state.object.title} Object</h1>
-        <button class='button'>Update Object</button>
+        <button class='button' onClick={this.handleUpdate.bind(this)}>Update Object</button>
         <button class='button tertiary' onClick={this.handleNewField.bind(this)}>New Field</button>
         <div class='row p-0 p-tb-1'>
           {fields}
