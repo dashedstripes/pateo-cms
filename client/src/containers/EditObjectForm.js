@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+import { fetchObjects } from '../actions/objectActions'
 
 class EditObjectForm extends Component {
   constructor(props) {
@@ -44,6 +47,16 @@ class EditObjectForm extends Component {
     // Need to include object and fields, field values etc
 
     // Get all objects
+    this.props.dispatch(fetchObjects()).then(() => {
+      this.props.objects.objects.map((object) => {
+        if (object.id == this.props.object_id) {
+          this.setState({
+            object: object
+          })
+        }
+      })
+
+    })
 
     // Filter to current object using this.props.object_id
 
@@ -112,6 +125,14 @@ class EditObjectForm extends Component {
       )
     })
 
+    if (this.props.objects.pending) {
+      return <p>Loading fields...</p>
+    }
+
+    if (this.props.objects.error.message) {
+      return <p>this.props.objects.error.message</p>
+    }
+
     return (
       <div>
         <h1>Edit {this.state.object.title} Object</h1>
@@ -125,4 +146,10 @@ class EditObjectForm extends Component {
   }
 }
 
-export default EditObjectForm
+function mapStateToProps(state) {
+  return {
+    objects: state.objects
+  }
+}
+
+export default connect(mapStateToProps)(EditObjectForm)
