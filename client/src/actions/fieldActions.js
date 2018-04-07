@@ -13,3 +13,10 @@ export function updateFields(fieldPromises) {
     payload: Promise.all(fieldPromises)
   }
 }
+
+export function deleteField(fieldId) {
+  return {
+    type: 'DELETE_FIELD',
+    payload: axios.delete(`/api/fields/${fieldId}`)
+  }
+}

@@ -22,6 +22,13 @@ function reducer(state = defaultState, action) {
     case 'UPDATE_FIELDS_FULFILLED':
       return { ...state, pending: false }
 
+    case 'DELETE_FIELD_PENDING':
+      return { ...state, pending: true }
+    case 'DELETE_FIELD_REJECTED':
+      return { ...state, pending: false, error: action.payload }
+    case 'DELETE_FIELD_FULFILLED':
+      return { ...state, pending: false }
+
     default:
       return state
   }

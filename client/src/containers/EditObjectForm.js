@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { fetchObjects } from '../actions/objectActions'
 import { fetchFieldInputs } from '../actions/fieldinputActions'
-import { fetchFields, updateFields } from '../actions/fieldActions'
+import { fetchFields, updateFields, deleteField } from '../actions/fieldActions'
 
 class EditObjectForm extends Component {
   constructor(props) {
@@ -92,6 +92,7 @@ class EditObjectForm extends Component {
         }
       })
     })
+    this.props.dispatch(deleteField(fieldId))
   }
 
   handleUpdate() {
