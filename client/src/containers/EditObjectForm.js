@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { fetchObjects } from '../actions/objectActions'
+import { fetchFieldInputs } from '../actions/fieldinputActions'
 
 class EditObjectForm extends Component {
   constructor(props) {
@@ -43,26 +44,27 @@ class EditObjectForm extends Component {
   }
 
   componentDidMount() {
-    // Setup form for current object
-    // Need to include object and fields, field values etc
 
     // Get all objects
     this.props.dispatch(fetchObjects()).then(() => {
-      this.props.objects.objects.map((object) => {
+      this.props.objects.objects.forEach((object) => {
         if (object.id == this.props.object_id) {
           this.setState({
             object: object
           })
         }
       })
-
     })
 
-    // Filter to current object using this.props.object_id
+    // Get all field Inputs
+    this.props.dispatch(fetchFieldInputs()).then(() => {
+      this.setState({
+        fieldInputs: this.props.fieldInputs.fieldInputs
+      })
+    })
 
     // Get all fields for object_id
 
-    // Get all field inputs
   }
 
   handleSelectChange(fieldId, e) {
@@ -148,7 +150,8 @@ class EditObjectForm extends Component {
 
 function mapStateToProps(state) {
   return {
-    objects: state.objects
+    objects: state.objects,
+    fieldInputs: state.fieldInputs
   }
 }
 
