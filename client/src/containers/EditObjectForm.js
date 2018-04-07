@@ -3,43 +3,16 @@ import { connect } from 'react-redux'
 
 import { fetchObjects } from '../actions/objectActions'
 import { fetchFieldInputs } from '../actions/fieldinputActions'
+import { fetchFields } from '../actions/fieldActions'
 
 class EditObjectForm extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      object: {
-        id: 1,
-        title: 'Artwork',
-        slug: 'artwork'
-      },
-      fields: [
-        {
-          id: 1,
-          title: 'Name',
-          slug: 'name',
-          fieldInputId: 2
-        },
-        {
-          id: 2,
-          title: 'Medium',
-          slug: 'medium',
-          fieldInputId: 1
-        }
-      ],
-      fieldInputs: [
-        {
-          id: 1,
-          title: 'Text',
-          type: 'text'
-        },
-        {
-          id: 2,
-          title: 'Number',
-          type: 'number'
-        }
-      ]
+      object: {},
+      fields: [],
+      fieldInputs: []
     }
   }
 
@@ -54,6 +27,17 @@ class EditObjectForm extends Component {
           })
         }
       })
+    }).then(() => {
+      // Get all fields
+      return this.props.dispatch((fetchFields()))
+    }).then(() => {
+      this.setState({
+        fields: this.props.fields.fields.filter((field) => {
+          if (field.objectId == this.props.object_id) {
+            return field
+          }
+        })
+      })
     })
 
     // Get all field Inputs
@@ -62,8 +46,6 @@ class EditObjectForm extends Component {
         fieldInputs: this.props.fieldInputs.fieldInputs
       })
     })
-
-    // Get all fields for object_id
 
   }
 
@@ -151,7 +133,8 @@ class EditObjectForm extends Component {
 function mapStateToProps(state) {
   return {
     objects: state.objects,
-    fieldInputs: state.fieldInputs
+    fieldInputs: state.fieldInputs,
+    fields: state.fields
   }
 }
 
