@@ -48,7 +48,8 @@ router.route('/:field_id')
     }, {
         where: {
           id: req.params.field_id
-        }
+        },
+        individualHooks: true
       }).then((rowCount) => res.json(rowCount))
       .catch((error) => res.json(error))
   })

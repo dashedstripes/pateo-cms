@@ -25,6 +25,10 @@ field.hook('beforeBulkCreate', (fields) => {
   }
 })
 
+field.hook('beforeUpdate', (field) => {
+  field.slug = slugify(field.title)
+})
+
 field.belongsTo(object)
 field.belongsTo(page)
 field.belongsTo(fieldInput)
