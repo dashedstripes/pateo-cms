@@ -18,7 +18,10 @@ class EditObjectForm extends Component {
   }
 
   componentDidMount() {
+    this.loadFields()
+  }
 
+  loadFields() {
     // Get all objects
     this.props.dispatch(fetchObjects()).then(() => {
       this.props.objects.objects.forEach((object) => {
@@ -47,7 +50,6 @@ class EditObjectForm extends Component {
         fieldInputs: this.props.fieldInputs.fieldInputs
       })
     })
-
   }
 
   handleSelectChange(fieldId, e) {
@@ -108,7 +110,7 @@ class EditObjectForm extends Component {
       }
     })
 
-    this.props.dispatch(updateFields(fieldPromises))
+    this.props.dispatch(updateFields(fieldPromises)).then(() => this.loadFields())
   }
 
   render() {
@@ -129,11 +131,21 @@ class EditObjectForm extends Component {
     })
 
     if (this.props.objects.pending) {
-      return <p>Loading objects...</p>
+      return (
+        <div>
+          <h1>Edit {this.state.object.title} Object</h1>
+          <p>Loading...</p>
+        </div>
+      )
     }
 
     if (this.props.fields.pending) {
-      return <p>Loading fields...</p>
+      return (
+        <div>
+          <h1>Edit {this.state.object.title} Object</h1>
+          <p>Loading...</p>
+        </div>
+      )
     }
 
     if (this.props.objects.error.message) {
