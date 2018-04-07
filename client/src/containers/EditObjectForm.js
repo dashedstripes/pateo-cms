@@ -85,6 +85,16 @@ class EditObjectForm extends Component {
     })
   }
 
+  handleDeleteField(fieldId, e) {
+    this.setState({
+      fields: this.state.fields.filter((field) => {
+        if (field.id !== fieldId) {
+          return field
+        }
+      })
+    })
+  }
+
   render() {
     let fields = this.state.fields.map((field) => {
       let fieldInputs = this.state.fieldInputs.map((fieldInput) => {
@@ -97,6 +107,7 @@ class EditObjectForm extends Component {
           <select value={field.fieldInputId} onChange={this.handleSelectChange.bind(this, field.id)}>
             {fieldInputs}
           </select>
+          <button class='ion-ios-trash' onClick={this.handleDeleteField.bind(this, field.id)}></button>
         </div>
       )
     })
