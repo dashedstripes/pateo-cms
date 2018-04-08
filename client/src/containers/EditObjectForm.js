@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { connect } from 'react-redux'
 
+import EditObjectFormTitle from '../components/EditObjectForm/EditObjectFormTitle'
+
 import { fetchObjects } from '../actions/objectActions'
 import { fetchFieldInputs } from '../actions/fieldinputActions'
 import { fetchFields, updateFields, deleteField } from '../actions/fieldActions'
@@ -158,15 +160,10 @@ class EditObjectForm extends Component {
 
     return (
       <div>
-        <div class='row p-0 p-tb-1'>
-          <div class='col-6'>
-            <h2 class='m-0 m-t-1'>Edit {this.state.object.title} Object</h2>
-          </div>
-          <div class='col-6 t-r'>
-            <button class='button tertiary m-r-2' onClick={this.handleNewField.bind(this)}>ADD FIELD</button>
-            <button class='button' onClick={this.handleUpdate.bind(this)}>UPDATE</button>
-          </div>
-        </div>
+        <EditObjectFormTitle
+          title={this.state.object.title}
+          handleAddField={this.handleNewField.bind(this)}
+          handleUpdate={this.handleUpdate.bind(this)} />
         <div class='row p-0 p-tb-1'>
           {fields}
         </div>
