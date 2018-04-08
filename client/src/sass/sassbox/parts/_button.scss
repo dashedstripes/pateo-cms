@@ -1,10 +1,11 @@
 .button {
   display: inline-block;
   font-weight: bold;
-  padding: 20px 30px;
+  padding: 15px 15px;
   color: $c-white;
   background: $c-button;
   border-radius: 3px;
+  border: 0px;
   transition: 0.25s;
 
   &:hover {

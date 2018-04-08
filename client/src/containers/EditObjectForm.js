@@ -120,7 +120,7 @@ class EditObjectForm extends Component {
       })
 
       return (
-        <div key={field.id} class='col-6 p-l-0 p-r-0'>
+        <div key={field.id} class='col-6 p-tb-1'>
           <input type='text' value={field.title} onChange={this.handleInputChange.bind(this, field.id)} />
           <select value={field.fieldInputId} onChange={this.handleSelectChange.bind(this, field.id)}>
             {fieldInputs}
@@ -158,9 +158,15 @@ class EditObjectForm extends Component {
 
     return (
       <div>
-        <h1>Edit {this.state.object.title} Object</h1>
-        <button class='button' onClick={this.handleUpdate.bind(this)}>Update Object</button>
-        <button class='button tertiary' onClick={this.handleNewField.bind(this)}>New Field</button>
+        <div class='row p-0 p-tb-1'>
+          <div class='col-6'>
+            <h2 class='m-0 m-t-1'>Edit {this.state.object.title} Object</h2>
+          </div>
+          <div class='col-6 t-r'>
+            <button class='button tertiary m-r-2' onClick={this.handleNewField.bind(this)}>ADD FIELD</button>
+            <button class='button' onClick={this.handleUpdate.bind(this)}>UPDATE</button>
+          </div>
+        </div>
         <div class='row p-0 p-tb-1'>
           {fields}
         </div>
