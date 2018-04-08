@@ -132,20 +132,15 @@ class EditObjectForm extends Component {
       )
     })
 
-    if (this.props.objects.pending) {
+    if (this.props.objects.pending || this.props.fields.pending) {
       return (
         <div>
-          <h1>Edit {this.state.object.title} Object</h1>
-          <p>Loading...</p>
-        </div>
-      )
-    }
-
-    if (this.props.fields.pending) {
-      return (
-        <div>
-          <h1>Edit {this.state.object.title} Object</h1>
-          <p>Loading...</p>
+          <EditObjectFormTitle
+            disabled={true}
+            title={this.state.object.title}
+            handleAddField={this.handleNewField.bind(this)}
+            handleUpdate={this.handleUpdate.bind(this)} />
+          <div>Loading...</div>
         </div>
       )
     }
