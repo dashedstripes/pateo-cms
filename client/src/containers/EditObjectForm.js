@@ -140,7 +140,11 @@ class EditObjectForm extends Component {
             title={this.state.object.title}
             handleAddField={this.handleNewField.bind(this)}
             handleUpdate={this.handleUpdate.bind(this)} />
-          <div>Loading...</div>
+          <div class='row'>
+            <div class='col-12'>
+              <p>Loading...</p>
+            </div>
+          </div>
         </div>
       )
     }
