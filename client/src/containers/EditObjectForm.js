@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { connect } from 'react-redux'
 
+import FlashMessage from '../components/FlashMessage'
 import EditObjectFormTitle from '../components/EditObjectForm/EditObjectFormTitle'
 
 import { fetchObjects } from '../actions/objectActions'
@@ -15,7 +16,12 @@ class EditObjectForm extends Component {
     this.state = {
       object: {},
       fields: [],
-      fieldInputs: []
+      fieldInputs: [],
+      flash: {
+        active: false,
+        type: 'update',
+        message: 'Object updated.'
+      }
     }
   }
 
@@ -95,6 +101,9 @@ class EditObjectForm extends Component {
         }
       })
     })
+
+    this.setFlashMessage('delete', 'Field deleted.')
+
     this.props.dispatch(deleteField(fieldId))
   }
 
@@ -111,7 +120,29 @@ class EditObjectForm extends Component {
       }
     })
 
+    this.setFlashMessage('update', 'Object updated.')
+
     this.props.dispatch(updateFields(fieldPromises)).then(() => this.load())
+  }
+
+  setFlashMessage(type, message) {
+    this.setState({
+      flash: {
+        active: true,
+        type,
+        message
+      }
+    })
+
+    setTimeout(() => {
+      this.setState({
+        flash: {
+          active: false,
+          type,
+          message
+        }
+      })
+    }, 2000)
   }
 
   render() {
@@ -141,6 +172,7 @@ class EditObjectForm extends Component {
 
     return (
       <div>
+        <FlashMessage active={this.state.flash.active} type={this.state.flash.type} message={this.state.flash.message} />
         <EditObjectFormTitle
           title={this.state.object.title}
           handleAddField={this.handleNewField.bind(this)}
