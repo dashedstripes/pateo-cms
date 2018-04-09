@@ -20,36 +20,35 @@ class EditObjectForm extends Component {
   }
 
   componentDidMount() {
-    this.loadFields()
+    this.load()
   }
 
-  loadFields() {
-    // Get all objects
-    this.props.dispatch(fetchObjects()).then(() => {
-      this.props.objects.objects.forEach((object) => {
-        if (object.id == this.props.object_id) {
-          this.setState({
-            object: object
-          })
-        }
-      })
-    }).then(() => {
-      // Get all fields
-      return this.props.dispatch((fetchFields()))
-    }).then(() => {
-      this.setState({
-        fields: this.props.fields.fields.filter((field) => {
-          if (field.objectId == this.props.object_id) {
-            return field
-          }
-        })
-      })
-    })
+  load() {
+    this.props.dispatch(fetchObjects())
+      .then(() => this.setCurrentObjectToState(this.props.objects.objects))
+      .then(() => this.props.dispatch((fetchFields())))
+      .then(() => this.setFieldsFromObjectIdToState(this.props.fields.fields))
 
-    // Get all field Inputs
-    this.props.dispatch(fetchFieldInputs()).then(() => {
-      this.setState({
-        fieldInputs: this.props.fieldInputs.fieldInputs
+    this.props.dispatch(fetchFieldInputs())
+      .then(() => this.setState({ fieldInputs: this.props.fieldInputs.fieldInputs }))
+  }
+
+  setCurrentObjectToState(objects) {
+    objects.forEach((object) => {
+      if (object.id == this.props.object_id) {
+        this.setState({
+          object: object
+        })
+      }
+    })
+  }
+
+  setFieldsFromObjectIdToState(fields) {
+    this.setState({
+      fields: fields.filter((field) => {
+        if (field.objectId == this.props.object_id) {
+          return field
+        }
       })
     })
   }
@@ -112,7 +111,7 @@ class EditObjectForm extends Component {
       }
     })
 
-    this.props.dispatch(updateFields(fieldPromises)).then(() => this.loadFields())
+    this.props.dispatch(updateFields(fieldPromises)).then(() => this.load())
   }
 
   render() {
@@ -131,23 +130,6 @@ class EditObjectForm extends Component {
         </div>
       )
     })
-
-    if (this.props.objects.pending || this.props.fields.pending) {
-      return (
-        <div>
-          <EditObjectFormTitle
-            disabled={true}
-            title={this.state.object.title}
-            handleAddField={this.handleNewField.bind(this)}
-            handleUpdate={this.handleUpdate.bind(this)} />
-          <div class='row'>
-            <div class='col-12'>
-              <p>Loading...</p>
-            </div>
-          </div>
-        </div>
-      )
-    }
 
     if (this.props.objects.error.message) {
       return <p>{this.props.objects.error.message}</p>

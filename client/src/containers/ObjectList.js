@@ -16,16 +16,6 @@ class ObjectList extends Component {
     let objects = this.props.objects.map((object) =>
       <ObjectListItem key={object.id} id={object.id} title={object.title} />)
 
-    if (this.props.pending) {
-      return (
-        <div>
-          <h1>Objects</h1>
-          <Link to='/objects/new'>New Object</Link>
-          <p>Loading objects...</p>
-        </div>
-      )
-    }
-
     if (this.props.error.message) {
       return (
         <div>
