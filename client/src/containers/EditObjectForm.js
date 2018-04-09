@@ -102,8 +102,6 @@ class EditObjectForm extends Component {
       })
     })
 
-    this.setFlashMessage('delete', 'Field deleted.')
-
     this.props.dispatch(deleteField(fieldId))
   }
 
