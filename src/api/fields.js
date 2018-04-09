@@ -8,7 +8,10 @@ router.route('/')
 
   .get((req, res) => {
     field.findAll({
-      attributes: allowedAttributes
+      attributes: allowedAttributes,
+      order: [
+        ['createdAt', 'ASC']
+      ]
     })
       .then((objects) => res.json(objects))
       .catch((error) => res.json(error))
