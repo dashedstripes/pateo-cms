@@ -27,8 +27,8 @@ class Sidebar extends Component {
         <div>
           <h5>pages</h5>
           <div class='list-group'>
-            <Link class='list-group-item' to='/pages/1'>about</Link>
-            <Link class='list-group-item' to='/pages/2'>contact</Link>
+            <Link class='list-group-item' to='/pages/1/contents'>about</Link>
+            <Link class='list-group-item' to='/pages/2/contents'>contact</Link>
           </div>
         </div>
       </div>
