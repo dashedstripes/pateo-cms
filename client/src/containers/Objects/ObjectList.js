@@ -40,6 +40,7 @@ class ObjectList extends Component {
           isLoading: false
         })
       })
+      // TODO: Better error handling
       .catch((err) => {
         this.setState({
           hasError: true,
@@ -49,9 +50,12 @@ class ObjectList extends Component {
   }
 
   handleDelete(id) {
+    // TODO: Make the user accept a confirmation dialog or something before deleting
+
     // Delete the object via the API
     axios.delete('/api/objects/' + id)
       .then((res) => console.log(res))
+      // TODO: Better error handling
       .catch((error) => {
         this.setState({
           hasError: true

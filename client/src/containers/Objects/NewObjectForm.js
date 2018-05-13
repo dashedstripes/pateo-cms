@@ -51,6 +51,7 @@ class NewObjectForm extends Component {
     // Get the field inputs from database and set them in the state object
     axios.get('/api/field_inputs')
       .then((res) => this.setState({ fieldInputs: res.data }))
+      // TODO: Better error handling
       .catch((err) => console.log(error))
   }
 
@@ -105,7 +106,8 @@ class NewObjectForm extends Component {
         fieldPromises.push(
           axios.post('/api/fields', {
             title: field.title,
-            objectId: res.data.id,
+            objectId: res.data.id, // The ID of the object we just created.
+
             // We've got to get the ID for the selected fieldInput for this field.
             // We loop through each fieldInput, and filter down to the one that matches the type set on the 
             // current field, as .filter returns an array, we get the item at [0] and grab the id.
@@ -117,6 +119,7 @@ class NewObjectForm extends Component {
       return Promise.all(fieldPromises)
     })
       .then((res) => this.setState({ isLoading: false }))
+      // TODO: Better error handling
       .catch((err) => this.setState({ isLoading: false }))
   }
 
