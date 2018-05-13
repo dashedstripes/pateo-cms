@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import ObjectCard from '../../components/ObjectCard';
 
@@ -32,11 +33,10 @@ class ObjectList extends Component {
     })
 
     // Get all objects and set component state
-    fetch('/api/objects')
-      .then((res) => res.json())
-      .then((data) => {
+    axios.get('/api/objects')
+      .then((res) => {
         this.setState({
-          objects: data,
+          objects: res.data,
           isLoading: false
         })
       })
@@ -49,6 +49,16 @@ class ObjectList extends Component {
   }
 
   handleDelete(id) {
+    // Delete the object via the API
+    axios.delete('/api/objects/' + id)
+      .then((res) => console.log(res))
+      .catch((error) => {
+        this.setState({
+          hasError: true
+        })
+      })
+
+    // Optimistically delete the object
     this.setState({
       objects: this.state.objects.filter((object) => object.id !== id)
     })
