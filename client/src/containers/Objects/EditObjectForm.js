@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { withRouter } from 'react-router-dom'
 
 const defaultState = {
   id: 1, // object_id
@@ -36,6 +37,7 @@ class EditObjectForm extends Component {
     super(props)
 
     this.state = {
+      isLoading: false,
       id: 1,
       title: '',
       slug: '',
@@ -45,6 +47,7 @@ class EditObjectForm extends Component {
 
     this.handleAddField = this.handleAddField.bind(this)
     this.handleTitleChange = this.handleTitleChange.bind(this)
+    this.handleSave = this.handleSave.bind(this)
   }
 
   componentDidMount() {
@@ -129,6 +132,26 @@ class EditObjectForm extends Component {
     })
   }
 
+  updateObjectAndFields() {
+    // Update the current object
+    axios.put('/api/objects/' + this.state.id, {
+      title: this.state.title
+    }).then((res) => this.props.history.push('/objects'))
+      // TODO: Better error handling
+      .catch((err) => this.setState({ isLoading: false }))
+
+    // TODO: Update fields if they exist, create fields if they don't.
+  }
+
+  handleSave() {
+    // Set State to loading
+    this.setState({
+      isLoading: true
+    })
+
+    this.updateObjectAndFields()
+  }
+
   render() {
     let fields = this.state.fields.map((field) => {
       return (
@@ -161,7 +184,7 @@ class EditObjectForm extends Component {
           <div class='col-6'>
             <div class='btn-group float-right'>
               <button class='btn btn-primary' onClick={this.handleAddField}>Add Field</button>
-              <button class='btn btn-success' disabled={this.state.title === ''}>Save</button>
+              <button class='btn btn-success' onClick={this.handleSave} disabled={this.state.title === ''}>Save</button>
             </div>
           </div>
         </div>
@@ -187,4 +210,4 @@ class EditObjectForm extends Component {
   }
 }
 
-export default EditObjectForm
+export default withRouter(EditObjectForm)

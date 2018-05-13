@@ -15,6 +15,10 @@ const object = sequelize.define('object', {
   slug: Sequelize.STRING
 })
 
+// For some reason beforeCreate, and beforeUpdate doesn't function
+// like you'd expect them to..
+// I'm using afterValidate instead as it seems to generate the slug properly.
+
 object.hook('afterValidate', (object) => {
   object.slug = slugify(object.title)
 })

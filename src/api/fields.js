@@ -45,6 +45,7 @@ router.route('/:field_id')
   .put((req, res) => {
     field.update({
       title: req.body.title,
+      slug: req.body.slug,
       objectId: req.body.objectId,
       pageId: req.body.pageId,
       fieldInputId: req.body.fieldInputId
