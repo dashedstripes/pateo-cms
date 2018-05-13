@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import NewObjectForm from '../../containers/NewObjectForm';
+import NewObjectForm from '../../containers/Objects/NewObjectForm';
 
 class NewObject extends Component {
   render() {

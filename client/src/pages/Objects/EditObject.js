@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import EditObjectForm from '../../containers/EditObjectForm';
+import EditObjectForm from '../../containers/Objects/EditObjectForm';
 
 class EditObject extends Component {
   render() {
