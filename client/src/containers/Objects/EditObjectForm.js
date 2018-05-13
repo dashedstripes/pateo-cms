@@ -1,41 +1,94 @@
 import React, { Component } from 'react'
+import axios from 'axios'
+
+const defaultState = {
+  id: 1, // object_id
+  title: 'Artwork',
+  slug: 'artwork',
+  fields: [
+    {
+      id: 1,
+      title: 'description',
+      type: 'text'
+    },
+    {
+      id: 2,
+      title: 'floorspace',
+      type: 'number'
+    }
+  ],
+  fieldInputs: [
+    {
+      id: 1,
+      title: 'Text',
+      type: 'text'
+    },
+    {
+      id: 2,
+      title: 'Number',
+      type: 'number'
+    }
+  ]
+}
 
 class EditObjectForm extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      id: 1, // object_id
-      title: 'Artwork',
-      slug: 'artwork',
-      fields: [
-        {
-          id: 1,
-          title: 'description',
-          type: 'text'
-        },
-        {
-          id: 2,
-          title: 'floorspace',
-          type: 'number'
-        }
-      ],
-      fieldInputs: [
-        {
-          id: 1,
-          title: 'Text',
-          type: 'text'
-        },
-        {
-          id: 2,
-          title: 'Number',
-          type: 'number'
-        }
-      ]
+      id: 1,
+      title: '',
+      slug: '',
+      fields: [],
+      fieldInputs: []
     }
 
     this.handleAddField = this.handleAddField.bind(this)
     this.handleTitleChange = this.handleTitleChange.bind(this)
+  }
+
+  componentDidMount() {
+    this.fetchObjectsAndFields()
+    this.fetchFieldInputs()
+  }
+
+  fetchObjectsAndFields() {
+    // Get object from database using id in req.params
+    // this.props.object_id returns a string, so we parse it to an int
+    let objectId = parseInt(this.props.object_id)
+
+    axios.get('/api/objects/' + objectId)
+      .then((res) => {
+        this.setState({
+          id: res.data.id,
+          title: res.data.title,
+          slug: res.data.slug
+        })
+      })
+      // After we've set the object, get and set the fields for this object
+      .then(() => {
+        return axios.get('/api/fields')
+      })
+      .then((res) => {
+        let fields = res.data
+        // We only want the fields that have the objectId equal to the current object
+        this.setState({
+          fields: fields.filter((field) => field.objectId === objectId)
+        })
+      })
+      .catch((err) => console.log(err))
+  }
+
+  fetchFieldInputs() {
+    // Get and set field inputs 
+    // This doesn't rely on anything so can be done separately to objects and fieldInputs
+    axios.get('/api/field_inputs')
+      .then((res) => {
+        this.setState({
+          fieldInputs: res.data
+        })
+      })
+      .catch((err) => console.log(err))
   }
 
   // This also generates a slug based on the title

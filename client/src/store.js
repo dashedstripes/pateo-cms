@@ -5,10 +5,10 @@ import reducers from './reducers'
 const middleware = applyMiddleware(promise())
 const store = createStore(reducers, middleware)
 
-console.log(store.getState())
+// console.log(store.getState())
 
 store.subscribe(() => {
-  console.log(store.getState())
+  // console.log(store.getState())
 })
 
 export default store
