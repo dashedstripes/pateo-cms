@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { withRouter } from 'react-router-dom'
 
 const defaultState = {
   title: 'Artwork',
@@ -118,7 +119,8 @@ class NewObjectForm extends Component {
 
       return Promise.all(fieldPromises)
     })
-      .then((res) => this.setState({ isLoading: false }))
+      // Use history.push to change back to the objects list after the object is created.
+      .then((res) => this.props.history.push('/objects'))
       // TODO: Better error handling
       .catch((err) => this.setState({ isLoading: false }))
   }
@@ -190,4 +192,5 @@ class NewObjectForm extends Component {
   }
 }
 
-export default NewObjectForm
+// Wrap the component with withRouter so that this.props.history.push() works
+export default withRouter(NewObjectForm)
