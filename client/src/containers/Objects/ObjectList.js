@@ -74,6 +74,7 @@ class ObjectList extends Component {
         <ObjectCard
           id={object.id}
           title={object.title}
+          slug={object.slug}
           onDelete={this.handleDelete.bind(this, object.id)} />
       </div>
     ))
