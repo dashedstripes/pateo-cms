@@ -107,7 +107,7 @@ class NewObjectForm extends Component {
           <div class='col-6'>
             <div class='btn-group float-right'>
               <button class='btn btn-primary' onClick={this.handleAddField}>Add Field</button>
-              <button class='btn btn-success'>Save</button>
+              <button class='btn btn-success' disabled={this.state.title === ''}>Save</button>
             </div>
           </div>
         </div>
