@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import ObjectCard from '../../components/ObjectCard';
 
 const defaultState = {
   objects: [
@@ -18,8 +19,33 @@ class ObjectList extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      isLoading: false,
+      hasError: false,
       objects: []
     }
+  }
+
+  componentDidMount() {
+    // Set State to loading
+    this.setState({
+      isLoading: true
+    })
+
+    // Get all objects and set component state
+    fetch('/api/objects')
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({
+          objects: data,
+          isLoading: false
+        })
+      })
+      .catch((err) => {
+        this.setState({
+          hasError: true,
+          isLoading: false
+        })
+      })
   }
 
   handleDelete(id) {
@@ -31,24 +57,25 @@ class ObjectList extends Component {
   render() {
     let objects = this.state.objects.map((object) => (
       <div key={object.id} class='col-4 py-3'>
-        <div class='card'>
-          <div class='card-body'>
-            <h5 class='card-title'>{object.title}</h5>
-            <div class='btn-group'>
-              <Link class='btn btn-link' to={'/objects/' + object.id + '/edit'}>
-                <i class="far fa-edit"></i>
-              </Link>
-              <button class='btn btn-link' onClick={this.handleDelete.bind(this, object.id)}>
-                <i class="fas fa-trash"></i>
-              </button>
-            </div>
-          </div>
-        </div>
+        <ObjectCard
+          id={object.id}
+          title={object.title}
+          onDelete={this.handleDelete.bind(this, object.id)} />
       </div>
     ))
 
+    let isLoading = this.state.isLoading ? <p><i class="fas fa-spinner"></i></p> : null
+
     return (
       <div>
+
+        {this.state.hasError
+          ?
+          <div class='alert alert-danger'>
+            An error occured whilst fetching objects, please refresh the page to try again.
+          </div>
+          : null}
+
         <div class='row py-4'>
           <div class='col-6'>
             <h3>Objects</h3>
@@ -58,6 +85,9 @@ class ObjectList extends Component {
           </div>
         </div>
         <div class='row'>
+
+          {isLoading}
+
           {this.state.objects.length > 0
             ? objects
             :
