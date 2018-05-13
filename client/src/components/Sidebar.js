@@ -4,40 +4,32 @@ import { Link } from 'react-router-dom'
 class Sidebar extends Component {
   render() {
     return (
-      <div class="">
+      <div class='py-3'>
+        <div class='mb-5'>
+          <h5>
+            <Link to='/'>pateo cms</Link>
+          </h5>
+
+          <div class='list-group'>
+            <Link class='list-group-item' to='/objects'>objects</Link>
+            <Link class='list-group-item' to='/pages'>pages</Link>
+          </div>
+        </div>
+
+        <div class='mb-5'>
+          <h5>objects</h5>
+          <div class='list-group'>
+            <Link class='list-group-item' to='/objects/1/contents'>artwork</Link>
+            <Link class='list-group-item' to='/objects/2/contents'>property</Link>
+          </div>
+        </div>
+
         <div>
-          <h4>
-            <Link to='/'>PATEO CMS</Link>
-          </h4>
-
-          <ul class=''>
-            <li class=''>
-              <Link to='/objects'>OBJECTS</Link>
-            </li>
-            <li class=''>
-              <Link to='/pages'>PAGES</Link>
-            </li>
-          </ul>
-
-          <h4>OBJECTS</h4>
-          <ul class=''>
-            <li class=''>
-              <Link to='/objects/1/contents'>ARTWORK</Link>
-            </li>
-            <li class=''>
-              <Link to='/objects/2/contents'>PROPERTY</Link>
-            </li>
-          </ul>
-
-          <h4>PAGES</h4>
-          <ul class=''>
-            <li class=''>
-              <Link to='/pages/1/contents'>ABOUT</Link>
-            </li>
-            <li class=''>
-              <Link to='/pages/2/contents'>CONTACT</Link>
-            </li>
-          </ul>
+          <h5>pages</h5>
+          <div class='list-group'>
+            <Link class='list-group-item' to='/pages/1'>about</Link>
+            <Link class='list-group-item' to='/pages/2'>contact</Link>
+          </div>
         </div>
       </div>
     )
