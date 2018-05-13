@@ -177,7 +177,7 @@ class EditObjectForm extends Component {
 
     return (
       <div>
-        <div class='row py-4'>
+        <div class='row pb-4'>
           <div class='col-6'>
             <h3>{this.state.title}</h3>
           </div>

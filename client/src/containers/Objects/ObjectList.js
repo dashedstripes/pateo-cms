@@ -91,7 +91,7 @@ class ObjectList extends Component {
           </div>
           : null}
 
-        <div class='row py-4'>
+        <div class='row pb-4'>
           <div class='col-6'>
             <h3>Objects</h3>
           </div>
