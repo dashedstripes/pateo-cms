@@ -1,20 +1,24 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
+const defaultState = {
+  objects: [
+    {
+      id: 1,
+      title: 'Artwork'
+    },
+    {
+      id: 2,
+      title: 'Property'
+    }
+  ]
+}
+
 class ObjectList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      objects: [
-        {
-          id: 1,
-          title: 'Artwork'
-        },
-        {
-          id: 2,
-          title: 'Property'
-        }
-      ]
+      objects: []
     }
   }
 
@@ -54,7 +58,13 @@ class ObjectList extends Component {
           </div>
         </div>
         <div class='row'>
-          {objects}
+          {this.state.objects.length > 0
+            ? objects
+            :
+            <div class='col-12'>
+              <p>No Objects found.</p>
+            </div>
+          }
         </div>
       </div>
     )
