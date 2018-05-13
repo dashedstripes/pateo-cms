@@ -8,8 +8,10 @@ class Layout extends Component {
   render() {
     return (
       <div class='app'>
-        <Sidebar />
-        <div class='main c-b-light-gray'>
+        <div class='sidebar'>
+          <Sidebar />
+        </div>
+        <div class='main'>
           {this.props.children}
         </div>
       </div>

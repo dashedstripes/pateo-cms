@@ -78,41 +78,55 @@ class NewObjectForm extends Component {
   render() {
     let fields = this.state.fields.map((field) => {
       return (
-        <div key={field.id} class='col-6 m-b-1'>
-          <input type='text' value={field.title} onChange={this.handleChangeFieldTitle.bind(this, field.id)} />
-          <select value={field.type} onChange={this.handleChangeFieldType.bind(this, field.id)}>
-            {this.state.fieldInputs.map((fieldInput) => {
-              return <option key={fieldInput.id} value={fieldInput.type}>{fieldInput.title}</option>
-            })}
-          </select>
-          <button onClick={this.handleDeleteField.bind(this, field.id)}>Delete field</button>
+        <div key={field.id} class='col-6 mb-3'>
+          <div class='form-group'>
+            <div class='input-group'>
+              <input class='form-control' type='text' value={field.title} onChange={this.handleChangeFieldTitle.bind(this, field.id)} />
+              <div class="input-group-append">
+                <button class="btn btn-outline-danger" type="button" onClick={this.handleDeleteField.bind(this, field.id)}>
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+            <select class='form-control mb-2' value={field.type} onChange={this.handleChangeFieldType.bind(this, field.id)}>
+              {this.state.fieldInputs.map((fieldInput) => {
+                return <option key={fieldInput.id} value={fieldInput.type}>{fieldInput.title}</option>
+              })}
+            </select>
+          </div>
         </div>
       )
     })
 
     return (
       <div>
-        <div class='row m-b-05'>
+        <div class='row py-4'>
           <div class='col-6'>
             <h3>New Object</h3>
           </div>
           <div class='col-6'>
-            <button>Save</button>
+            <div class='btn-group float-right'>
+              <button class='btn btn-primary' onClick={this.handleAddField}>Add Field</button>
+              <button class='btn btn-success'>Save</button>
+            </div>
           </div>
         </div>
-        <div class='row m-b-2'>
-          <div class='col-12'>
-            <input type='text' value={this.state.title} onChange={this.handleTitleChange} />
-            <input type='text' value={this.state.slug} disabled />
+        <div class='row'>
+          <div class='col-6'>
+            <div class='form-group'>
+              <label>Title</label>
+              <input class='form-control' type='text' value={this.state.title} onChange={this.handleTitleChange} />
+            </div>
+          </div>
+          <div class='col-6'>
+            <div class='form-group'>
+              <label>Slug</label>
+              <input class='form-control' type='text' value={this.state.slug} disabled />
+            </div>
           </div>
         </div>
         <div class='row'>
           {fields}
-        </div>
-        <div class='row'>
-          <div class='col-12'>
-            <button onClick={this.handleAddField}>Add Field</button>
-          </div>
         </div>
       </div>
     )
