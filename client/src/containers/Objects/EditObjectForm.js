@@ -136,13 +136,16 @@ class EditObjectForm extends Component {
   }
 
   handleDeleteField(id) {
-    this.setState({
-      fields: [...this.state.fields.filter((field) => field.id !== id)]
-    })
+    axios.delete('/api/fields/' + id)
+      .then((res) => {
+        this.setState({
+          fields: [...this.state.fields.filter((field) => field.id !== id)]
+        })
+      })
+      .catch((err) => console.log(err))
   }
 
   updateObjectAndFields() {
-    console.log(this.state)
     // Update the current object
     axios.put('/api/objects/' + this.state.id, {
       title: this.state.title
@@ -176,7 +179,11 @@ class EditObjectForm extends Component {
     })
 
     Promise.all(fieldsToCreate, fieldsToUpdate)
-      .then((res) => console.log(res))
+      .then((res) => {
+        this.setState({
+          isLoading: false
+        })
+      })
       .catch((err) => console.log(err))
 
   }
