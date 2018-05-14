@@ -104,7 +104,16 @@ class EditObjectForm extends Component {
 
   handleAddField() {
     this.setState({
-      fields: [...this.state.fields, { id: Date.now(), title: 'Untitled Field', type: 'text' }]
+      fields: [
+        ...this.state.fields,
+        {
+          id: Date.now(),
+          title: 'Untitled Field',
+          type: 'text',
+          objectId: this.state.id,
+          new: true
+        }
+      ]
     })
   }
 
@@ -133,6 +142,7 @@ class EditObjectForm extends Component {
   }
 
   updateObjectAndFields() {
+    console.log(this.state)
     // Update the current object
     axios.put('/api/objects/' + this.state.id, {
       title: this.state.title
@@ -140,7 +150,35 @@ class EditObjectForm extends Component {
       // TODO: Better error handling
       .catch((err) => this.setState({ isLoading: false }))
 
-    // TODO: Update fields if they exist, create fields if they don't.
+    let fieldsToCreate = []
+    let fieldsToUpdate = []
+    // Update fields if they exist, create fields if they don't.
+    this.state.fields.map((field) => {
+      // If it's a new field, create it.
+      if (field.new) {
+        fieldsToCreate.push(
+          axios.post('/api/fields/', {
+            title: field.title,
+            objectId: this.state.id,
+            fieldInputId: this.state.fieldInputs.filter((fieldInput) => fieldInput.type === field.type)[0].id
+          })
+        )
+        // If it's an existing field, update it.
+      } else {
+        fieldsToUpdate.push(
+          axios.put('/api/fields/' + field.id, {
+            title: field.title,
+            objectId: field.objectId,
+            fieldInputId: field.fieldInputId
+          })
+        )
+      }
+    })
+
+    Promise.all(fieldsToCreate, fieldsToUpdate)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
+
   }
 
   handleSave() {
