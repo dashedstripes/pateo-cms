@@ -7,7 +7,10 @@ const allowedAttributes = ['id', 'title', 'slug']
 router.route('/')
   .get((req, res) => {
     object.findAll({
-      attributes: allowedAttributes
+      attributes: allowedAttributes,
+      order: [
+        ['title', 'ASC']
+      ]
     })
       .then((objects) => res.json(objects))
       .catch((error) => res.json(error))
