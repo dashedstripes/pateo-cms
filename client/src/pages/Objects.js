@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 
-import ObjectList from '../containers/Objects/ObjectList'
+import CardList from '../containers/CardList'
 
 class Objects extends Component {
   render() {
     return (
       <div>
-        <ObjectList />
+        <CardList
+          title='Objects'
+          type='object'
+          plural='pages'
+          itemsUrl='/api/objects'
+          newUrl='/objects/new' />
       </div>
     )
 
