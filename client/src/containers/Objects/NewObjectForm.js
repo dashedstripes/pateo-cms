@@ -66,7 +66,7 @@ class NewObjectForm extends Component {
 
   handleAddField() {
     this.setState({
-      fields: [...this.state.fields, { id: Date.now(), title: 'Untitled Field', type: 'text' }]
+      fields: [...this.state.fields, { id: Date.now(), title: '', type: 'text' }]
     })
   }
 
@@ -137,10 +137,10 @@ class NewObjectForm extends Component {
   render() {
     let fields = this.state.fields.map((field) => {
       return (
-        <div key={field.id} class='col-6 mb-3'>
+        <div key={field.id} class='col-12 mb-3'>
           <div class='form-group'>
             <div class='input-group'>
-              <input class='form-control' type='text' value={field.title} onChange={this.handleChangeFieldTitle.bind(this, field.id)} />
+              <input class='form-control' type='text' value={field.title} placeholder="Enter a field name..." onChange={this.handleChangeFieldTitle.bind(this, field.id)} />
               <div class="input-group-append">
                 <button class="btn btn-outline-danger" type="button" onClick={this.handleDeleteField.bind(this, field.id)}>
                   <i class="fas fa-trash"></i>
@@ -174,7 +174,7 @@ class NewObjectForm extends Component {
           <div class='col-6'>
             <div class='form-group'>
               <label>Title</label>
-              <input class='form-control' type='text' value={this.state.title} onChange={this.handleTitleChange} />
+              <input class='form-control' type='text' placeholder="Object Name" value={this.state.title} onChange={this.handleTitleChange} />
             </div>
           </div>
           <div class='col-6'>

@@ -57,13 +57,19 @@ class CardList extends Component {
 
   render() {
     let items = this.state.items.map((item) => (
-      <div key={item.id} class='col-4 py-3'>
-        <Card
-          id={item.id}
-          title={item.title}
-          slug={item.slug}
-          onDelete={this.handleDelete.bind(this, item.id)} />
-      </div>
+      <tr>
+        <th scope="row">{item.id}</th>
+        <td>{item.title}</td>
+        <td>{item.slug}</td>
+        <td>
+          <Link class='btn btn-link' to={`/${this.props.plural}/${item.id}/edit`}>
+            <i class="far fa-edit"></i>
+          </Link>
+          <button class='btn btn-link' onClick={this.handleDelete.bind(this, item.id)}>
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
     ))
 
     let isLoading = this.state.isLoading ? <p><i class="fas fa-spinner"></i></p> : null
@@ -91,7 +97,20 @@ class CardList extends Component {
           {isLoading}
 
           {this.state.items.length > 0
-            ? items
+            ?
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Slug</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {items}
+              </tbody>
+            </table>
             :
             <div class='col-12'>
               <p>No {this.props.plural} found.</p>

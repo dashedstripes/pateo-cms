@@ -9,7 +9,7 @@ class Objects extends Component {
         <CardList
           title='Objects'
           type='object'
-          plural='pages'
+          plural='objects'
           itemsUrl='/api/objects'
           newUrl='/objects/new' />
       </div>
