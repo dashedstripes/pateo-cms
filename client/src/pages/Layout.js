@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 
 import Sidebar from '../containers/Sidebar'
 
+import 'jquery'
+import 'popper.js'
+import 'bootstrap'
 import '../sass/style.scss'
 
 class Layout extends Component {

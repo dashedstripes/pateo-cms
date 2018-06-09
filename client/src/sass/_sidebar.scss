@@ -1,0 +1,26 @@
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  padding: 1rem 0rem;
+  background: darken($pateo, 25%);
+}
+
+.sidebar-heading {
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.sidebar-list-item {
+  color: mix($pateo, #eaeaea, 50%);
+  background: darken($pateo, 25%);
+}
+
+.sidebar-link-icon {
+  margin-right: 1rem;
+}
+
+.list-group-item-action:hover {
+  color: #fff;
+  background: $pateo;
+}

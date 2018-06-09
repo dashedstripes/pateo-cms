@@ -1,24 +1,16 @@
-* {
-  // outline: 1px solid red;
-}
+// Variable overrides
+$pateo: #43998c;
+$primary: $pateo;
 
-body {
-  font-family: 'Open Sans', sans-serif;
-}
+$border-radius: 3px;
+$list-group-border-radius: 0px;
 
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-}
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import 'global';
+@import 'sidebar';
 
 .app {
   display: flex;
-}
-
-.sidebar {
-  width: 300px;
-  height: 100vh;
-  padding: 1rem;
-  background: #eeeeee;
 }
 
 .main {
