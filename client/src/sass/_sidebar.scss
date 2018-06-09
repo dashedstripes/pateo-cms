@@ -6,9 +6,10 @@
 }
 
 .sidebar-heading {
-  color: #fff;
+  color: mix($pateo, #eaeaea, 50%);
+  font-weight: normal;
   font-size: 1rem;
-  padding: 0.75rem 1.25rem;
+  padding: 0.75rem 0.75rem;
 }
 
 .sidebar-list-item {
@@ -23,4 +24,8 @@
 .list-group-item-action:hover {
   color: #fff;
   background: $pateo;
+}
+
+.list-group-item-action:focus {
+  @extend .sidebar-list-item;
 }

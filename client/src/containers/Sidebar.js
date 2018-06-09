@@ -11,7 +11,7 @@ class Sidebar extends Component {
           </h5>
 
           <div class='list-group list-group-hover'>
-            <Link class='list-group-item sidebar-list-item list-group-item-action active' to='/objects'>
+            <Link class='list-group-item sidebar-list-item list-group-item-action' to='/objects'>
               <span class="badge badge-pill"><i class="fas fa-box-open"></i></span>
               objects
             </Link>
