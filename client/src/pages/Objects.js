@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 
-import CardList from '../containers/CardList'
+import TableList from '../containers/TableList'
 
 class Objects extends Component {
   render() {
     return (
       <div>
-        <CardList
+        <TableList
           title='Objects'
           type='object'
           plural='objects'

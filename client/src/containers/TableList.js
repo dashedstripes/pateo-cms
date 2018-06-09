@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import Card from '../components/Card';
+import Table from '../components/Table';
+import TableRow from '../components/TableRow';
 
-class CardList extends Component {
+class TableList extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -57,19 +58,14 @@ class CardList extends Component {
 
   render() {
     let items = this.state.items.map((item) => (
-      <tr>
-        <th scope="row">{item.id}</th>
-        <td>{item.title}</td>
-        <td>{item.slug}</td>
-        <td>
-          <Link class='btn btn-link' to={`/${this.props.plural}/${item.id}/edit`}>
-            <i class="far fa-edit"></i>
-          </Link>
-          <button class='btn btn-link' onClick={this.handleDelete.bind(this, item.id)}>
-            <i class="fas fa-trash"></i>
-          </button>
-        </td>
-      </tr>
+      <TableRow
+        key={item.id}
+        id={item.id}
+        title={item.title}
+        slug={item.slug}
+        editUrl={`/${this.props.plural}/${item.id}/edit`}
+        onDelete={this.handleDelete.bind(this, item.id)}
+      />
     ))
 
     let isLoading = this.state.isLoading ? <p><i class="fas fa-spinner"></i></p> : null
@@ -98,19 +94,10 @@ class CardList extends Component {
 
           {this.state.items.length > 0
             ?
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Slug</th>
-                  <th scope="col">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {items}
-              </tbody>
-            </table>
+            <Table
+              headings={['ID', 'Name', 'Slug', 'Actions']}
+              items={items}
+            />
             :
             <div class='col-12'>
               <p>No {this.props.plural} found.</p>
@@ -123,4 +110,4 @@ class CardList extends Component {
   }
 }
 
-export default CardList
+export default TableList

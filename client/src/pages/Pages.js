@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import CardList from '../containers/CardList'
+import TableList from '../containers/TableList'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
@@ -8,7 +8,7 @@ class Pages extends Component {
     return (
       <div>
         <div>
-          <CardList
+          <TableList
             title='Pages'
             type='page'
             plural='pages'
