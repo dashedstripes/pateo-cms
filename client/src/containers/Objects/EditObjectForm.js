@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
+import AdminField from '../../components/AdminField';
+import AdminSystemFields from '../../components/AdminSystemFields';
 
 const defaultState = {
   id: 1, // object_id
@@ -201,52 +203,28 @@ class EditObjectForm extends Component {
     let fields = this.state.fields.map((field) => {
       return (
         <div key={field.id} class='col-6 mb-3'>
-          <div class='form-group'>
-            <div class='input-group'>
-              <input class='form-control' type='text' placeholder='Enter a field name...' value={field.title} onChange={this.handleChangeFieldTitle.bind(this, field.id)} />
-              <div class="input-group-append">
-                <button class="btn btn-outline-danger" type="button" onClick={this.handleDeleteField.bind(this, field.id)}>
-                  <i class="fas fa-trash"></i>
-                </button>
-              </div>
-            </div>
-            <select class='form-control mb-2' value={field.type} onChange={this.handleChangeFieldType.bind(this, field.id)}>
-              {this.state.fieldInputs.map((fieldInput) => {
-                return <option key={fieldInput.id} value={fieldInput.type}>{fieldInput.title}</option>
-              })}
-            </select>
-          </div>
+          <AdminField
+            value={field.title}
+            type={field.type}
+            fieldInputs={this.state.fieldInputs}
+            onChange={this.handleChangeFieldTitle.bind(this, field.id)}
+            onDelete={this.handleDeleteField.bind(this, field.id)}
+            onFieldTypeChange={this.handleChangeFieldType.bind(this, field.id)}
+          />
         </div>
       )
     })
 
     return (
       <div>
-        <div class='row pb-4'>
-          <div class='col-6'>
-            <h3>{this.state.title}</h3>
-          </div>
-          <div class='col-6'>
-            <div class='btn-group float-right'>
-              <button class='btn btn-primary' onClick={this.handleAddField}>Add Field</button>
-              <button class='btn btn-success' onClick={this.handleSave} disabled={this.state.title === ''}>Save</button>
-            </div>
-          </div>
-        </div>
-        <div class='row'>
-          <div class='col-6'>
-            <div class='form-group'>
-              <label>Title</label>
-              <input class='form-control' type='text' value={this.state.title} onChange={this.handleTitleChange} />
-            </div>
-          </div>
-          <div class='col-6'>
-            <div class='form-group'>
-              <label>Slug</label>
-              <input class='form-control' type='text' value={this.state.slug} disabled />
-            </div>
-          </div>
-        </div>
+        <AdminSystemFields
+          uiTitle={this.state.title}
+          title={this.state.title}
+          slug={this.state.slug}
+          onAddField={this.handleAddField}
+          onSave={this.handleSave}
+          onTitleChange={this.handleTitleChange}
+        />
         <div class='row'>
           {fields}
         </div>
