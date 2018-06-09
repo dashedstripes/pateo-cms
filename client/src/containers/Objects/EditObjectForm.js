@@ -108,7 +108,7 @@ class EditObjectForm extends Component {
         ...this.state.fields,
         {
           id: Date.now(),
-          title: 'Untitled Field',
+          title: '',
           type: 'text',
           objectId: this.state.id,
           new: true
@@ -203,7 +203,7 @@ class EditObjectForm extends Component {
         <div key={field.id} class='col-6 mb-3'>
           <div class='form-group'>
             <div class='input-group'>
-              <input class='form-control' type='text' value={field.title} onChange={this.handleChangeFieldTitle.bind(this, field.id)} />
+              <input class='form-control' type='text' placeholder='Enter a field name...' value={field.title} onChange={this.handleChangeFieldTitle.bind(this, field.id)} />
               <div class="input-group-append">
                 <button class="btn btn-outline-danger" type="button" onClick={this.handleDeleteField.bind(this, field.id)}>
                   <i class="fas fa-trash"></i>

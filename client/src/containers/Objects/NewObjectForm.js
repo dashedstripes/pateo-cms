@@ -137,7 +137,7 @@ class NewObjectForm extends Component {
   render() {
     let fields = this.state.fields.map((field) => {
       return (
-        <div key={field.id} class='col-12 mb-3'>
+        <div key={field.id} class='col-6 mb-3'>
           <div class='form-group'>
             <div class='input-group'>
               <input class='form-control' type='text' value={field.title} placeholder="Enter a field name..." onChange={this.handleChangeFieldTitle.bind(this, field.id)} />
