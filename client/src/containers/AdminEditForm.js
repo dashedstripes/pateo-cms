@@ -1,38 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
-import AdminField from '../../components/AdminField';
-import AdminSystemFields from '../../components/AdminSystemFields';
-
-const defaultState = {
-  id: 1, // object_id
-  title: 'Artwork',
-  slug: 'artwork',
-  fields: [
-    {
-      id: 1,
-      title: 'description',
-      type: 'text'
-    },
-    {
-      id: 2,
-      title: 'floorspace',
-      type: 'number'
-    }
-  ],
-  fieldInputs: [
-    {
-      id: 1,
-      title: 'Text',
-      type: 'text'
-    },
-    {
-      id: 2,
-      title: 'Number',
-      type: 'number'
-    }
-  ]
-}
+import AdminField from '../components/AdminField';
+import AdminSystemFields from '../components/AdminSystemFields';
 
 class EditObjectForm extends Component {
   constructor(props) {
@@ -60,9 +30,9 @@ class EditObjectForm extends Component {
   fetchObjectsAndFields() {
     // Get object from database using id in req.params
     // this.props.object_id returns a string, so we parse it to an int
-    let objectId = parseInt(this.props.object_id)
+    let id = parseInt(this.props.id)
 
-    axios.get('/api/objects/' + objectId)
+    axios.get(`/api/${this.props.type}/${id}`)
       .then((res) => {
         this.setState({
           id: res.data.id,
@@ -76,10 +46,18 @@ class EditObjectForm extends Component {
       })
       .then((res) => {
         let fields = res.data
-        // We only want the fields that have the objectId equal to the current object
-        this.setState({
-          fields: fields.filter((field) => field.objectId === objectId)
-        })
+        // We only want the fields that have the id equal to the current object
+        if (this.props.type === 'objects') {
+          this.setState({
+            fields: fields.filter((field) => field.objectId === id)
+          })
+        }
+
+        if (this.props.type === 'pages') {
+          this.setState({
+            fields: fields.filter((field) => field.pageId === id)
+          })
+        }
       })
       .catch((err) => console.log(err))
   }
@@ -149,9 +127,9 @@ class EditObjectForm extends Component {
 
   updateObjectAndFields() {
     // Update the current object
-    axios.put('/api/objects/' + this.state.id, {
+    axios.put(`/api/${this.props.type}/${this.state.id}`, {
       title: this.state.title
-    }).then((res) => this.props.history.push('/objects'))
+    }).then((res) => this.props.history.push(`/${this.props.type}`))
       // TODO: Better error handling
       .catch((err) => this.setState({ isLoading: false }))
 
@@ -164,7 +142,8 @@ class EditObjectForm extends Component {
         fieldsToCreate.push(
           axios.post('/api/fields/', {
             title: field.title,
-            objectId: this.state.id,
+            objectId: this.props.type === 'objects' ? this.state.id : null,
+            pageId: this.props.type === 'pages' ? this.state.id : null,
             fieldInputId: this.state.fieldInputs.filter((fieldInput) => fieldInput.type === field.type)[0].id
           })
         )
@@ -173,7 +152,8 @@ class EditObjectForm extends Component {
         fieldsToUpdate.push(
           axios.put('/api/fields/' + field.id, {
             title: field.title,
-            objectId: field.objectId,
+            objectId: this.props.type === 'objects' ? this.state.id : null,
+            pageId: this.props.type === 'pages' ? this.state.id : null,
             fieldInputId: field.fieldInputId
           })
         )

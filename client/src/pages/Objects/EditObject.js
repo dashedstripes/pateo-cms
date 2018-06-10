@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
-import EditObjectForm from '../../containers/Objects/EditObjectForm';
+import AdminEditForm from '../../containers/AdminEditForm';
 
 class EditObject extends Component {
   render() {
     return (
       <div>
-        <EditObjectForm object_id={this.props.match.params.object_id} />
+        <AdminEditForm
+          id={this.props.match.params.object_id}
+          type='objects'
+        />
       </div>
     )
   }

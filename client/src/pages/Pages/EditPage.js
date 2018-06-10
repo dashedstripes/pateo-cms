@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
+import AdminEditForm from '../../containers/AdminEditForm';
 
 class EditPage extends Component {
   render() {
     return (
       <div>
-        <p>Edit page form for page_id: {this.props.match.params.page_id}</p>
+        <AdminEditForm
+          id={this.props.match.params.page_id}
+          type='pages'
+        />
       </div>
     )
   }
