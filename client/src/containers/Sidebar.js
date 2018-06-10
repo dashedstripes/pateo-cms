@@ -2,7 +2,50 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 
 class Sidebar extends Component {
+  constructor() {
+    super()
+
+    this.state = {
+      isLoading: true,
+      objects: [],
+      pages: []
+    }
+  }
+
+  componentDidMount() {
+    Promise.all([
+      fetch('/api/objects'),
+      fetch('/api/pages')
+    ]).then((res) => {
+      return Promise.all(res.map((r) => r.json()))
+    }).then((res) => {
+      let objects = res[0]
+      let pages = res[1]
+
+      this.setState({
+        isLoading: false,
+        objects,
+        pages
+      })
+    })
+  }
+
   render() {
+
+    let objects = this.state.objects.map((object) => (
+      <NavLink class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to={`/objects/${object.id}/contents`}>
+        <i class="fas fa-box-open fa-fw sidebar-icon"></i>
+        {object.title.toLowerCase()}
+      </NavLink>
+    ))
+
+    let pages = this.state.pages.map((page) => (
+      <NavLink class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to={`/pages/${page.id}/contents`}>
+        <i class="fas fa-file fa-fw sidebar-icon"></i>
+        {page.title.toLowerCase()}
+      </NavLink>
+    ))
+
     return (
       <div>
         <div class='py-3'>
@@ -39,14 +82,7 @@ class Sidebar extends Component {
           <div>
             <h5 class='sidebar-heading'>objects</h5>
             <div class='list-group'>
-              <NavLink class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to='/objects/1/contents'>
-                <i class="fas fa-box-open fa-fw sidebar-icon"></i>
-                artwork
-              </NavLink>
-              <NavLink class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to='/objects/2/contents'>
-                <i class="fas fa-box-open fa-fw sidebar-icon"></i>
-                property
-              </NavLink>
+              {objects}
             </div>
           </div>
 
@@ -55,14 +91,7 @@ class Sidebar extends Component {
           <div>
             <h5 class='sidebar-heading'>pages</h5>
             <div class='list-group'>
-              <NavLink class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to='/pages/1/contents'>
-                <i class="fas fa-file fa-fw sidebar-icon"></i>
-                about
-              </NavLink>
-              <NavLink class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to='/pages/2/contents'>
-                <i class="fas fa-file fa-fw sidebar-icon"></i>
-                contact
-              </NavLink>
+              {pages}
             </div>
           </div>
         </div>
