@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { fetchObjects } from '../actions/objectActions';
+import { fetchPages } from '../actions/pageActions';
 import AdminField from '../components/AdminField';
 import AdminSystemFields from '../components/AdminSystemFields';
 
@@ -109,7 +112,11 @@ class NewObjectForm extends Component {
       return Promise.all(fieldPromises)
     })
       // Use history.push to change back to the objects list after the object is created.
-      .then((res) => this.props.history.push(`/${this.props.type}`))
+      .then((res) => {
+        this.props.dispatch(fetchObjects())
+        this.props.dispatch(fetchPages())
+        this.props.history.push(`/${this.props.type}`)
+      })
       // TODO: Better error handling
       .catch((err) => this.setState({ isLoading: false }))
   }
@@ -158,4 +165,4 @@ class NewObjectForm extends Component {
 }
 
 // Wrap the component with withRouter so that this.props.history.push() works
-export default withRouter(NewObjectForm)
+export default withRouter(connect()(NewObjectForm))

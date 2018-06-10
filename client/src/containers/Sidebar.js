@@ -1,46 +1,30 @@
-import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchObjects } from '../actions/objectActions';
+import { fetchPages } from '../actions/pageActions';
+import { NavLink } from 'react-router-dom';
 
 class Sidebar extends Component {
   constructor() {
     super()
-
-    this.state = {
-      isLoading: true,
-      objects: [],
-      pages: []
-    }
   }
 
   componentDidMount() {
-    Promise.all([
-      fetch('/api/objects'),
-      fetch('/api/pages')
-    ]).then((res) => {
-      return Promise.all(res.map((r) => r.json()))
-    }).then((res) => {
-      let objects = res[0]
-      let pages = res[1]
-
-      this.setState({
-        isLoading: false,
-        objects,
-        pages
-      })
-    })
+    this.props.dispatch(fetchObjects())
+    this.props.dispatch(fetchPages())
   }
 
   render() {
 
-    let objects = this.state.objects.map((object) => (
-      <NavLink class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to={`/objects/${object.id}/contents`}>
+    let objects = this.props.objects.map((object) => (
+      <NavLink key={object.id} class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to={`/objects/${object.id}/contents`}>
         <i class="fas fa-box-open fa-fw sidebar-icon"></i>
         {object.title.toLowerCase()}
       </NavLink>
     ))
 
-    let pages = this.state.pages.map((page) => (
-      <NavLink class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to={`/pages/${page.id}/contents`}>
+    let pages = this.props.pages.map((page) => (
+      <NavLink key={page.id} class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to={`/pages/${page.id}/contents`}>
         <i class="fas fa-file fa-fw sidebar-icon"></i>
         {page.title.toLowerCase()}
       </NavLink>
@@ -100,4 +84,11 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar
+function mapStateToProps(state) {
+  return {
+    objects: state.objects.objects,
+    pages: state.pages.pages
+  }
+}
+
+export default connect(mapStateToProps)(Sidebar)

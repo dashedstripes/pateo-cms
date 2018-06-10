@@ -1,6 +1,8 @@
-export function createObject(title) {
+import axios from 'axios'
+
+export function fetchPages() {
   return {
-    type: 'CREATE_OBJECT',
-    payload: {}
+    type: 'FETCH_PAGES',
+    payload: axios.get('/api/pages')
   }
 }
