@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
+import AdminNewForm from '../../containers/AdminNewForm';
 
 class NewPage extends Component {
   render() {
     return (
       <div>
-        <p>New page form</p>
+        <AdminNewForm
+          uiTitle='New Page'
+          type='pages'
+        />
       </div>
     )
   }

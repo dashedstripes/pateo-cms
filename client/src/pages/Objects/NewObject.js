@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
-import NewObjectForm from '../../containers/Objects/NewObjectForm';
+import AdminNewForm from '../../containers/AdminNewForm';
 
 class NewObject extends Component {
   render() {
     return (
       <div>
-        <NewObjectForm />
+        <AdminNewForm
+          uiTitle='New Object'
+          type='objects'
+        />
       </div>
     )
   }
