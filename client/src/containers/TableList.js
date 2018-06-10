@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import { fetchObjects } from '../actions/objectActions';
+import { fetchPages } from '../actions/pageActions';
 import Table from '../components/Table';
 import TableRow from '../components/TableRow';
 
@@ -42,7 +45,10 @@ class TableList extends Component {
 
     // Delete the item via the API
     axios.delete(this.props.itemsUrl + '/' + id)
-      .then((res) => console.log(res))
+      .then((res) => {
+        this.props.dispatch(fetchObjects())
+        this.props.dispatch(fetchPages())
+      })
       // TODO: Better error handling
       .catch((error) => {
         this.setState({
@@ -110,4 +116,4 @@ class TableList extends Component {
   }
 }
 
-export default TableList
+export default withRouter(connect()(TableList))
