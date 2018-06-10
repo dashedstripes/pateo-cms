@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 class Sidebar extends Component {
   render() {
@@ -7,19 +7,30 @@ class Sidebar extends Component {
       <div>
         <div class='py-3'>
           <div>
-            <h5>
-              <h5 class='sidebar-heading'>admin</h5>
-            </h5>
+            <h5 class='sidebar-heading'>pateo cms</h5>
 
             <div class='list-group list-group-hover'>
-              <Link class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action active' to='/objects'>
+              <NavLink class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to='/'>
+                <i class="fas fa-tachometer-alt fa-fw sidebar-icon"></i>
+                dashboard
+              </NavLink>
+            </div>
+          </div>
+
+          <hr />
+
+          <div>
+            <h5 class='sidebar-heading'>admin</h5>
+
+            <div class='list-group list-group-hover'>
+              <NavLink class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to='/objects/'>
                 <i class="fas fa-box-open fa-fw sidebar-icon"></i>
                 objects
-              </Link>
-              <Link class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' to='/pages'>
+              </NavLink>
+              <NavLink class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to='/pages'>
                 <i class="fas fa-file fa-fw sidebar-icon"></i>
                 pages
-              </Link>
+              </NavLink>
             </div>
           </div>
 
@@ -28,14 +39,14 @@ class Sidebar extends Component {
           <div>
             <h5 class='sidebar-heading'>objects</h5>
             <div class='list-group'>
-              <Link class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' to='/objects/1/contents'>
+              <NavLink class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to='/objects/1/contents'>
                 <i class="fas fa-box-open fa-fw sidebar-icon"></i>
                 artwork
-              </Link>
-              <Link class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' to='/objects/2/contents'>
+              </NavLink>
+              <NavLink class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to='/objects/2/contents'>
                 <i class="fas fa-box-open fa-fw sidebar-icon"></i>
                 property
-              </Link>
+              </NavLink>
             </div>
           </div>
 
@@ -44,14 +55,14 @@ class Sidebar extends Component {
           <div>
             <h5 class='sidebar-heading'>pages</h5>
             <div class='list-group'>
-              <Link class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' to='/pages/1/contents'>
+              <NavLink class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to='/pages/1/contents'>
                 <i class="fas fa-file fa-fw sidebar-icon"></i>
                 about
-              </Link>
-              <Link class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' to='/pages/2/contents'>
+              </NavLink>
+              <NavLink class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to='/pages/2/contents'>
                 <i class="fas fa-file fa-fw sidebar-icon"></i>
                 contact
-              </Link>
+              </NavLink>
             </div>
           </div>
         </div>
