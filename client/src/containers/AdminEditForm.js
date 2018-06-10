@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { fetchObjects } from '../actions/objectActions';
+import { fetchPages } from '../actions/pageActions';
 import AdminField from '../components/AdminField';
 import AdminSystemFields from '../components/AdminSystemFields';
 
@@ -162,6 +165,8 @@ class EditObjectForm extends Component {
 
     Promise.all(fieldsToCreate, fieldsToUpdate)
       .then((res) => {
+        this.props.dispatch(fetchObjects())
+        this.props.dispatch(fetchPages())
         this.setState({
           isLoading: false
         })
@@ -213,4 +218,4 @@ class EditObjectForm extends Component {
   }
 }
 
-export default withRouter(EditObjectForm)
+export default withRouter(connect()(EditObjectForm))
