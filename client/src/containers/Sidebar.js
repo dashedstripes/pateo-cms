@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchObjects } from '../actions/objectActions';
 import { fetchPages } from '../actions/pageActions';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 
 class Sidebar extends Component {
   constructor() {
@@ -50,7 +50,7 @@ class Sidebar extends Component {
             <h5 class='sidebar-heading'>admin</h5>
 
             <div class='list-group list-group-hover'>
-              <NavLink class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to='/objects/'>
+              <NavLink class='list-group-item sidebar-list-item sidebar-list-item list-group-item-action' exact activeClassName="active" to='/objects'>
                 <i class="fas fa-box-open fa-fw sidebar-icon"></i>
                 objects
               </NavLink>
@@ -91,4 +91,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Sidebar)
+export default withRouter(connect(mapStateToProps)(Sidebar))
