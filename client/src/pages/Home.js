@@ -40,7 +40,7 @@ class Home extends Component {
     return (
       <div>
         <h1>Dashboard</h1>
-        <p>You have {this.state.objects.length} objects, and {this.state.pages.length} pages.</p>
+        <p>You have {this.state.objects.length} object(s), and {this.state.pages.length} page(s).</p>
       </div>
     )
   }
