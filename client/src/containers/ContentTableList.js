@@ -1,3 +1,6 @@
+// This is a modification of TableList, there is enough difference
+// between the two components to warrant a new component just for contents
+
 import React, { Component } from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux';
