@@ -74,8 +74,6 @@ class TableList extends Component {
       />
     ))
 
-    let isLoading = this.state.isLoading ? <p><i class="fas fa-spinner"></i></p> : null
-
     return (
       <div>
 
@@ -94,22 +92,21 @@ class TableList extends Component {
             <Link class='btn btn-primary float-right' to={this.props.newUrl}>New {this.props.type}</Link>
           </div>
         </div>
-        <div class='row'>
-
-          {isLoading}
-
-          {this.state.items.length > 0
-            ?
-            <Table
-              headings={['ID', 'Name', 'Slug', 'Actions']}
-              items={items}
-            />
-            :
-            <div class='col-12'>
-              <p>No {this.props.plural} found.</p>
-            </div>
-          }
-        </div>
+        {this.state.isLoading ? null :
+          <div class='row'>
+            {this.state.items.length > 0
+              ?
+              <Table
+                headings={['ID', 'Name', 'Slug', 'Actions']}
+                items={items}
+              />
+              :
+              <div class='col-12'>
+                <p>No {this.props.plural} found.</p>
+              </div>
+            }
+          </div>
+        }
       </div>
     )
 

@@ -110,7 +110,6 @@ class ContentTableList extends Component {
       />
     ))
 
-    // let isLoading = this.state.isLoading ? <p><i class="fas fa-spinner"></i></p> : null
 
     return (
       <div>
@@ -130,20 +129,22 @@ class ContentTableList extends Component {
             <Link class='btn btn-primary float-right' to='/objects/2/contents/new'>New Artwork</Link>
           </div>
         </div>
-        <div class='row'>
+        {this.state.isLoading ? null :
+          <div class='row'>
 
-          {this.state.items.length > 0
-            ?
-            <Table
-              headings={['ID', 'Name', 'Slug', 'Actions']}
-              items={items}
-            />
-            :
-            <div class='col-12'>
-              <p>No Artwork found.</p>
-            </div>
-          }
-        </div>
+            {this.state.items.length > 0
+              ?
+              <Table
+                headings={['ID', 'Name', 'Slug', 'Actions']}
+                items={items}
+              />
+              :
+              <div class='col-12'>
+                <p>No Artwork found.</p>
+              </div>
+            }
+          </div>
+        }
       </div>
     )
 
