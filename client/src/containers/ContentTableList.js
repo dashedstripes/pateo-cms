@@ -126,7 +126,7 @@ class ContentTableList extends Component {
             <h3>{this.state.currentObject.title}</h3>
           </div>
           <div class='col-6'>
-            <Link class='btn btn-primary float-right' to='/objects/2/contents/new'>New {this.state.currentObject.title}</Link>
+            <Link class='btn btn-primary float-right' to={`/objects/${this.state.currentObject.id}/contents/new`}>New {this.state.currentObject.title}</Link>
           </div>
         </div>
         {this.state.isLoading ? null :
