@@ -117,7 +117,7 @@ class ContentTableList extends Component {
         {this.state.hasError
           ?
           <div class='alert alert-danger'>
-            An error occured whilst fetching Artwork, please refresh the page to try again.
+            An error occured whilst fetching {this.state.currentObject.title}, please refresh the page to try again.
           </div>
           : null}
 
@@ -126,7 +126,7 @@ class ContentTableList extends Component {
             <h3>{this.state.currentObject.title}</h3>
           </div>
           <div class='col-6'>
-            <Link class='btn btn-primary float-right' to='/objects/2/contents/new'>New Artwork</Link>
+            <Link class='btn btn-primary float-right' to='/objects/2/contents/new'>New {this.state.currentObject.title}</Link>
           </div>
         </div>
         {this.state.isLoading ? null :
@@ -140,7 +140,7 @@ class ContentTableList extends Component {
               />
               :
               <div class='col-12'>
-                <p>No Artwork found.</p>
+                <p>No {this.state.currentObject.title} found.</p>
               </div>
             }
           </div>
