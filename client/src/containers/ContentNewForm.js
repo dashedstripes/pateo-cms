@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchObjects } from '../actions/objectActions';
 import { fetchPages } from '../actions/pageActions';
-import AdminField from '../components/AdminField';
 import ContentSystemFields from '../components/ContentSystemFields';
 
 class NewObjectForm extends Component {
@@ -17,7 +16,8 @@ class NewObjectForm extends Component {
       slug: '',
       object: {},
       fields: [],
-      fieldInputs: []
+      fieldInputs: [],
+      fieldValues: []
     }
 
     this.handleAddField = this.handleAddField.bind(this)
@@ -35,9 +35,19 @@ class NewObjectForm extends Component {
       axios.get(`/api/field_inputs`)
     ]).then((r) => {
       this.setState({
-        object: r[0],
+        object: r[0].data,
         fields: r[1].data.filter((field) => field.objectId === object_id),
-        field_inputs: r[2].data,
+        fieldInputs: r[2].data,
+      })
+    }).then(() => {
+      this.setState({
+        fieldValues: this.state.fields.map((field) => {
+          return {
+            id: field.id,
+            field,
+            value: ''
+          }
+        })
       })
     })
   }
@@ -74,6 +84,15 @@ class NewObjectForm extends Component {
     })
   }
 
+  handleChangeFieldValue(id, e) {
+    this.setState({
+      fieldValues: this.state.fieldValues.map((fieldValue) => {
+        if (fieldValue.id === id) fieldValue.value = e.target.value
+        return fieldValue
+      })
+    })
+  }
+
   handleDeleteField(id) {
     this.setState({
       fields: [...this.state.fields.filter((field) => field.id !== id)]
@@ -90,33 +109,17 @@ class NewObjectForm extends Component {
       title: this.state.title
     }).then((res) => {
       this.state.fields.map((field) => {
-        if (this.props.type === 'objects') {
-          fieldPromises.push(
-            axios.post('/api/fields', {
-              title: field.title,
-              objectId: res.data.id, // The ID of the object we just created.
+        fieldPromises.push(
+          axios.post('/api/fields', {
+            title: field.title,
+            objectId: res.data.id, // The ID of the object we just created.
 
-              // We've got to get the ID for the selected fieldInput for this field.
-              // We loop through each fieldInput, and filter down to the one that matches the type set on the 
-              // current field, as .filter returns an array, we get the item at [0] and grab the id.
-              fieldInputId: this.state.fieldInputs.filter((fieldInput) => fieldInput.type === field.type)[0].id
-            })
-          )
-        }
-
-        if (this.props.type === 'pages') {
-          fieldPromises.push(
-            axios.post('/api/fields', {
-              title: field.title,
-              pageId: res.data.id, // The ID of the object we just created.
-
-              // We've got to get the ID for the selected fieldInput for this field.
-              // We loop through each fieldInput, and filter down to the one that matches the type set on the 
-              // current field, as .filter returns an array, we get the item at [0] and grab the id.
-              fieldInputId: this.state.fieldInputs.filter((fieldInput) => fieldInput.type === field.type)[0].id
-            })
-          )
-        }
+            // We've got to get the ID for the selected fieldInput for this field.
+            // We loop through each fieldInput, and filter down to the one that matches the type set on the 
+            // current field, as .filter returns an array, we get the item at [0] and grab the id.
+            fieldInputId: this.state.fieldInputs.filter((fieldInput) => fieldInput.type === field.type)[0].id
+          })
+        )
       })
 
       return Promise.all(fieldPromises)
@@ -141,13 +144,13 @@ class NewObjectForm extends Component {
   }
 
   render() {
-    let fields = this.state.fields.map((field) => {
+    let fields = this.state.fieldValues.map((fieldValue) => {
       return (
-        <div key={field.id} class='col-6 mb-3'>
+        <div key={fieldValue.field.id} class='col-6 mb-3'>
           <div class='form-group'>
-            <label>{field.title}</label>
+            <label>{fieldValue.field.title}</label>
             <div class='input-group'>
-              <input class='form-control' type={field.type} value='' placeholder='' onChange={this.handleChangeFieldType.bind(this)} />
+              <input class='form-control' type={fieldValue.field.type} value={fieldValue.value} placeholder='' onChange={this.handleChangeFieldValue.bind(this, fieldValue.id)} />
             </div>
           </div>
         </div>
@@ -157,7 +160,7 @@ class NewObjectForm extends Component {
     return (
       <div>
         <ContentSystemFields
-          uiTitle="New Content"
+          uiTitle={`New ${this.state.object.title}`}
           title={this.state.title}
           slug={this.state.slug}
           onSave={this.handleSave}
