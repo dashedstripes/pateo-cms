@@ -99,39 +99,27 @@ class NewObjectForm extends Component {
     })
   }
 
-  postObjectAndFields() {
-    // Because we have an unknown amount of fields, we will need to store each post request
-    // into an array, then use Promise.all to post them all async.
-    let fieldPromises = []
-
-    // Create object in the database and retrieve the ID to create fields
-    axios.post(`/api/${this.props.type}`, {
-      title: this.state.title
+  createContent() {
+    // Create content using the object.id found in this.state.object.id
+    axios.post(`/api/contents`, {
+      title: this.state.title,
+      objectId: parseInt(this.state.object.id)
     }).then((res) => {
-      this.state.fields.map((field) => {
-        fieldPromises.push(
-          axios.post('/api/fields', {
-            title: field.title,
-            objectId: res.data.id, // The ID of the object we just created.
+      let content = res.data
 
-            // We've got to get the ID for the selected fieldInput for this field.
-            // We loop through each fieldInput, and filter down to the one that matches the type set on the 
-            // current field, as .filter returns an array, we get the item at [0] and grab the id.
-            fieldInputId: this.state.fieldInputs.filter((fieldInput) => fieldInput.type === field.type)[0].id
-          })
-        )
-      })
-
-      return Promise.all(fieldPromises)
+      // Then, for each field value in this.state.fieldValues
+      // create fieldValue using the content.id created before, and the field.id found in the fieldValue object
+      return Promise.all(this.state.fieldValues.map((fieldValue) => {
+        return axios.post(`/api/field_values`, {
+          value: fieldValue.value,
+          fieldId: parseInt(fieldValue.field.id),
+          contentId: parseInt(content.id)
+        })
+      }))
+    }).then(() => {
+      this.props.history.push(`/objects/${this.state.object.id}/contents`)
     })
-      // Use history.push to change back to the objects list after the object is created.
-      .then((res) => {
-        this.props.dispatch(fetchObjects())
-        this.props.dispatch(fetchPages())
-        this.props.history.push(`/${this.props.type}`)
-      })
-      // TODO: Better error handling
-      .catch((err) => this.setState({ isLoading: false }))
+
   }
 
   handleSave() {
@@ -140,7 +128,7 @@ class NewObjectForm extends Component {
       isLoading: true
     })
 
-    this.postObjectAndFields()
+    this.createContent()
   }
 
   render() {
