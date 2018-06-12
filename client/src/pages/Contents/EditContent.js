@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
+import ContentEditForm from '../../containers/ContentEditForm'
 
 class EditContent extends Component {
   render() {
     return (
-      <div>
-        <p>Edit Content form for content_id: {this.props.match.params.content_id}</p>
-      </div>
+      <ContentEditForm />
     )
   }
 }

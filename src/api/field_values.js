@@ -6,6 +6,14 @@ const allowedAttributes = ['id', 'value', 'fieldId', 'contentId']
 
 router.route('/')
 
+  .get((req, res) => {
+    fieldValue.findAll({
+      attributes: allowedAttributes
+    })
+      .then((fieldValues) => res.json(fieldValues))
+      .catch((error) => res.json(error))
+  })
+
   .post((req, res) => {
     fieldValue.create({
       value: req.body.value,

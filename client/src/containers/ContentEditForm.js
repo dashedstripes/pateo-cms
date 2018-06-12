@@ -10,83 +10,67 @@ class ContentEditForm extends Component {
 
     this.state = {
       isLoading: false,
-      title: '',
-      slug: '',
-      object: {},
+      content: {},
       fields: [],
-      fieldInputs: [],
-      fieldValues: []
     }
 
-    this.handleAddField = this.handleAddField.bind(this)
     this.handleTitleChange = this.handleTitleChange.bind(this)
     this.handleSave = this.handleSave.bind(this)
   }
 
   componentDidMount() {
-    // Get the field inputs from database and set them in the state object
-    let object_id = parseInt(this.props.match.params.object_id)
+    let content_id = parseInt(this.props.match.params.content_id)
 
     Promise.all([
-      axios.get(`/api/objects/${object_id}`),
+      // Get the content by using this.props.match.params.content_id
+      axios.get(`/api/contents/${content_id}`),
+      // Get all fields, and field inputs
       axios.get(`/api/fields`),
-      axios.get(`/api/field_inputs`)
-    ]).then((r) => {
+      axios.get(`/api/field_inputs`),
+      axios.get(`/api/field_values`)
+    ]).then((res) => {
+      // Get all field values and filter to where contentId matches this.match.params.content_id
+      let content = res[0].data
+      let fields = res[1].data.filter((field) => field.objectId === content.objectId)
+      let field_inputs = res[2].data
+      let field_values = res[3].data
+
       this.setState({
-        object: r[0].data,
-        fields: r[1].data.filter((field) => field.objectId === object_id),
-        fieldInputs: r[2].data,
-      })
-    }).then(() => {
-      this.setState({
-        fieldValues: this.state.fields.map((field) => {
+        content: content,
+        fields: fields.map((field) => {
           return {
             id: field.id,
-            field,
-            value: ''
+            title: field.title,
+            slug: field.slug,
+            value: field_values.filter((fieldValue) => fieldValue.fieldId === field.id && fieldValue.contentId === content.id)[0],
+            type: field_inputs.filter((fieldInput) => fieldInput.id === field.fieldInputId)[0]
           }
         })
       })
     })
+
   }
 
   // This also generates a slug based on the title
   handleTitleChange(e) {
     this.setState({
-      title: e.target.value,
-      slug: e.target.value.replace(/\s+/g, '-').toLowerCase()
-    })
-  }
-
-  handleAddField() {
-    this.setState({
-      fields: [...this.state.fields, { id: Date.now(), title: '', type: 'text' }]
+      content: { ...this.state.content, title: e.target.value, slug: e.target.value.replace(/\s+/g, '-').toLowerCase() },
     })
   }
 
   handleChangeFieldTitle(id, e) {
     this.setState({
       fields: this.state.fields.map((field) => {
-        if (field.id === id) field.title = e.target.value
-        return field
-      })
-    })
-  }
-
-  handleChangeFieldType(id, e) {
-    this.setState({
-      fields: this.state.fields.map((field) => {
-        if (field.id === id) field.type = e.target.value
-        return field
+        if (field.id === id) return { ...field, title: e.target.value }
       })
     })
   }
 
   handleChangeFieldValue(id, e) {
     this.setState({
-      fieldValues: this.state.fieldValues.map((fieldValue) => {
-        if (fieldValue.id === id) fieldValue.value = e.target.value
-        return fieldValue
+      fields: this.state.fields.map((field) => {
+        if (field.id === id) return { ...field, value: { ...field.value, value: e.target.value } }
+        return field
       })
     })
   }
@@ -97,26 +81,7 @@ class ContentEditForm extends Component {
     })
   }
 
-  createContent() {
-    // Create content using the object.id found in this.state.object.id
-    axios.post(`/api/contents`, {
-      title: this.state.title,
-      objectId: parseInt(this.state.object.id)
-    }).then((res) => {
-      let content = res.data
-
-      // Then, for each field value in this.state.fieldValues
-      // create fieldValue using the content.id created before, and the field.id found in the fieldValue object
-      return Promise.all(this.state.fieldValues.map((fieldValue) => {
-        return axios.post(`/api/field_values`, {
-          value: fieldValue.value,
-          fieldId: parseInt(fieldValue.field.id),
-          contentId: parseInt(content.id)
-        })
-      }))
-    }).then(() => {
-      this.props.history.push(`/objects/${this.state.object.id}/contents`)
-    })
+  updateContent() {
 
   }
 
@@ -126,17 +91,18 @@ class ContentEditForm extends Component {
       isLoading: true
     })
 
-    this.createContent()
+    this.updateContent()
   }
 
   render() {
-    let fields = this.state.fieldValues.map((fieldValue) => {
+
+    let fields = this.state.fields.map((field) => {
       return (
-        <div key={fieldValue.field.id} class='col-6 mb-3'>
+        <div key={field.id} class='col-6 mb-3'>
           <div class='form-group'>
-            <label>{fieldValue.field.title}</label>
+            <label>{field.title}</label>
             <div class='input-group'>
-              <input class='form-control' type={fieldValue.field.type} value={fieldValue.value} placeholder='' onChange={this.handleChangeFieldValue.bind(this, fieldValue.id)} />
+              <input class='form-control' type={field.type} value={field.value.value} placeholder='' onChange={this.handleChangeFieldValue.bind(this, field.id)} />
             </div>
           </div>
         </div>
@@ -146,9 +112,9 @@ class ContentEditForm extends Component {
     return (
       <div>
         <ContentSystemFields
-          uiTitle={`New ${this.state.object.title}`}
-          title={this.state.title}
-          slug={this.state.slug}
+          uiTitle={`Edit ${this.state.content.title}`}
+          title={this.state.content.title}
+          slug={this.state.content.slug}
           onSave={this.handleSave}
           onTitleChange={this.handleTitleChange}
         />
@@ -157,6 +123,7 @@ class ContentEditForm extends Component {
         </div>
       </div>
     )
+
   }
 }
 
