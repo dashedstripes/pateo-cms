@@ -82,7 +82,25 @@ class ContentEditForm extends Component {
   }
 
   updateContent() {
-
+    // Update content title
+    axios.put(`/api/contents/${this.state.content.id}`, {
+      title: this.state.content.title
+    })
+      .then((res) => {
+        return Promise.all(
+          this.state.fields.map((field) => {
+            return axios.put(`/api/field_values/${field.value.id}`, {
+              value: field.value.value
+            })
+          })
+        )
+      })
+      .then((res) => {
+        this.props.history.push(`/objects/${this.state.content.objectId}/contents`)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   handleSave() {
