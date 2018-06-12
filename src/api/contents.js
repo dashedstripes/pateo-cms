@@ -39,7 +39,11 @@ router.route('/:content_id')
   .put((req, res) => {
     content.update({
       title: req.body.title,
-      objectId: req.body.objectId
+      objectId: req.body.objectId,
+      // Even though we don't actually pass anything here
+      // Sequelize seems to want something for slug despite the fact
+      // that the model generates the slug on update
+      slug: req.body.slug
     }, {
         where: {
           id: req.params.content_id
