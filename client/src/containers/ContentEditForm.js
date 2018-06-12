@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ContentSystemFields from '../components/ContentSystemFields';
 
-class ContentNewForm extends Component {
+class ContentEditForm extends Component {
   constructor(props) {
     super(props)
 
@@ -161,4 +161,4 @@ class ContentNewForm extends Component {
 }
 
 // Wrap the component with withRouter so that this.props.history.push() works
-export default withRouter(connect()(ContentNewForm))
+export default withRouter(connect()(ContentEditForm))
