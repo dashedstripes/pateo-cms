@@ -7,7 +7,7 @@ import { fetchPages } from '../actions/pageActions';
 import AdminField from '../components/AdminField';
 import AdminSystemFields from '../components/AdminSystemFields';
 
-class EditObjectForm extends Component {
+class AdminEditForm extends Component {
   constructor(props) {
     super(props)
 
@@ -218,4 +218,4 @@ class EditObjectForm extends Component {
   }
 }
 
-export default withRouter(connect()(EditObjectForm))
+export default withRouter(connect()(AdminEditForm))
