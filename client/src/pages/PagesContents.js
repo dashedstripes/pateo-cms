@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
+import PagesContentsForm from '../containers/PageContentsForm'
 
 class PagesContents extends Component {
   render() {
     return (
-      <div>
-        PagesContents for page_id: {this.props.match.params.page_id}
-      </div>
+      <PagesContentsForm />
     )
   }
 }

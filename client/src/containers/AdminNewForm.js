@@ -7,7 +7,7 @@ import { fetchPages } from '../actions/pageActions';
 import AdminField from '../components/AdminField';
 import AdminSystemFields from '../components/AdminSystemFields';
 
-class NewObjectForm extends Component {
+class AdminNewForm extends Component {
   constructor(props) {
     super(props)
 
@@ -111,6 +111,24 @@ class NewObjectForm extends Component {
 
       return Promise.all(fieldPromises)
     })
+      .then((res) => {
+        // This class needs to slightly differ depending on creation of pages
+        // vs objects. Pages will need to create field values with blank values, whilst objects
+        // don't need file values to be generated.        
+        if (this.props.type === 'pages') {
+          return Promise.all(
+            res.map((fieldValue) => {
+              return axios.post(`/api/field_values`, {
+                value: '',
+                fieldId: parseInt(fieldValue.data.id),
+                contentId: null
+              })
+            })
+          )
+        }
+
+        return
+      })
       // Use history.push to change back to the objects list after the object is created.
       .then((res) => {
         this.props.dispatch(fetchObjects())
@@ -165,4 +183,4 @@ class NewObjectForm extends Component {
 }
 
 // Wrap the component with withRouter so that this.props.history.push() works
-export default withRouter(connect()(NewObjectForm))
+export default withRouter(connect()(AdminNewForm))
