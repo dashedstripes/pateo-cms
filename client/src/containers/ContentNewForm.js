@@ -3,6 +3,7 @@ import axios from 'axios'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ContentSystemFields from '../components/ContentSystemFields';
+import FormEditField from '../components/FormEditField';
 
 class ContentNewForm extends Component {
   constructor(props) {
@@ -132,14 +133,13 @@ class ContentNewForm extends Component {
   render() {
     let fields = this.state.fieldValues.map((fieldValue) => {
       return (
-        <div key={fieldValue.field.id} class='col-6 mb-3'>
-          <div class='form-group'>
-            <label>{fieldValue.field.title}</label>
-            <div class='input-group'>
-              <input class='form-control' type={fieldValue.field.type} value={fieldValue.value} placeholder='' onChange={this.handleChangeFieldValue.bind(this, fieldValue.id)} />
-            </div>
-          </div>
-        </div>
+        <FormEditField
+          key={field.id}
+          title={field.title}
+          type={field.type}
+          value={field.value.value}
+          onChange={this.handleChangeFieldValue.bind(this, field.id)}
+        />
       )
     })
 

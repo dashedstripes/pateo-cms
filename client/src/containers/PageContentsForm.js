@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import ContentSystemFields from '../components/ContentSystemFields';
 import PageContentsHeading from '../components/PageContentsHeading';
+import FormEditField from '../components/FormEditField';
 
 class PageContentsForm extends Component {
   constructor(props) {
@@ -65,14 +65,13 @@ class PageContentsForm extends Component {
 
     let fields = this.state.fields.map((field) => {
       return (
-        <div key={field.id} class='col-6 mb-3'>
-          <div class='form-group'>
-            <label>{field.title}</label>
-            <div class='input-group'>
-              <input class='form-control' type={field.type} value={field.value.value} placeholder='' onChange={this.handleChangeFieldValue.bind(this, field.id)} />
-            </div>
-          </div>
-        </div>
+        <FormEditField
+          key={field.id}
+          title={field.title}
+          type={field.type}
+          value={field.value.value}
+          onChange={this.handleChangeFieldValue.bind(this, field.id)}
+        />
       )
     })
 
