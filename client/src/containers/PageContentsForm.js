@@ -11,11 +11,11 @@ class PageContentsForm extends Component {
 
     this.state = {
       isLoading: false,
+      isSaved: false,
       page: {},
       fields: []
     }
 
-    this.handleTitleChange = this.handleTitleChange.bind(this)
     this.handleSave = this.handleSave.bind(this)
   }
 
@@ -49,16 +49,30 @@ class PageContentsForm extends Component {
     })
   }
 
-  handleTitleChange() {
-
-  }
-
-  handleChangeFieldValue() {
-
+  handleChangeFieldValue(id, e) {
+    this.setState({
+      isSaved: false,
+      fields: this.state.fields.map((field) => {
+        if (field.id === id) return { ...field, value: { ...field.value, value: e.target.value } }
+        return field
+      })
+    })
   }
 
   handleSave() {
-
+    Promise.all(
+      this.state.fields.map((field) => {
+        return axios.put(`/api/field_values/${field.value.id}`, {
+          value: field.value.value
+        })
+      })
+    ).then((res) => {
+      this.setState({
+        isSaved: true
+      })
+    }).catch((err) => {
+      console.log(err)
+    })
   }
 
   render() {
@@ -80,6 +94,7 @@ class PageContentsForm extends Component {
         <PageContentsHeading
           title={this.state.page.title}
           onSave={this.handleSave}
+          isSaveDisabled={this.state.isSaved}
         />
         <div class='row'>
           {fields}
