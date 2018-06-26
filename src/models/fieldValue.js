@@ -5,10 +5,7 @@ const content = require('./content')
 
 const fieldValue = sequelize.define('fieldValue', {
   value: {
-    type: Sequelize.STRING,
-    validate: {
-      notEmpty: true
-    }
+    type: Sequelize.STRING
   }
 })
 

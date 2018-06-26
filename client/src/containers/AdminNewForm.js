@@ -120,14 +120,14 @@ class AdminNewForm extends Component {
             res.map((fieldValue) => {
               return axios.post(`/api/field_values`, {
                 value: '',
-                fieldId: parseInt(fieldValue.data.id),
+                fieldId: fieldValue.data.id,
                 contentId: null
               })
             })
           )
+        } else {
+          return
         }
-
-        return
       })
       // Use history.push to change back to the objects list after the object is created.
       .then((res) => {
